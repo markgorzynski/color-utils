@@ -137,23 +137,22 @@ export function xyzToSrgb(xyzColor) {
 /**
  * Parses a hex color string to normalized sRGB object.
  * @param {string} hexStr - Hex color string with or without '#' prefix.
- * @returns {SrgbColor} sRGB color with values 0-1.
- * @throws {TypeError} If input is not a string.
- * @throws {SyntaxError} If hex format is invalid.
+ * @returns {SrgbColor|null} sRGB color with values 0-1, or null if invalid.
  * @example
  * parseSrgbHex('#FF5733') // { r: 1, g: 0.341, b: 0.2 }
  * parseSrgbHex('FF5733')  // { r: 1, g: 0.341, b: 0.2 }
  * parseSrgbHex('#F53')    // { r: 1, g: 0.333, b: 0.2 }
+ * parseSrgbHex('invalid') // null
  */
 export function parseSrgbHex(hexStr) {
-  if (typeof hexStr !== 'string') {
-    throw new TypeError('Input hexString must be a string.');
+  if (typeof hexStr !== 'string' || hexStr === '') {
+    return null;
   }
   
   const hex = hexStr.startsWith('#') ? hexStr.slice(1) : hexStr;
   
   if (!/^(?:[0-9a-fA-F]{3}){1,2}$/.test(hex)) {
-    throw new SyntaxError(`Invalid hex color string format: "${hexStr}"`);
+    return null;
   }
   
   let r, g, b;
@@ -171,13 +170,13 @@ export function parseSrgbHex(hexStr) {
 }
 
 /**
- * Formats an sRGB object as uppercase hex string.
+ * Formats an sRGB object as lowercase hex string.
  * Values are clamped to [0, 1] before conversion.
  * @param {SrgbColor} srgb - sRGB color with values 0-1.
- * @returns {string} Hex color string like "#FF5733".
+ * @returns {string} Hex color string like "#ff5733".
  * @throws {TypeError} If input is not a valid sRGB object.
  * @example
- * formatSrgbAsHex({ r: 1, g: 0.341, b: 0.2 }) // "#FF5733"
+ * formatSrgbAsHex({ r: 1, g: 0.341, b: 0.2 }) // "#ff5733"
  */
 export function formatSrgbAsHex(srgb) {
   if (typeof srgb !== 'object' || srgb === null ||
@@ -192,7 +191,7 @@ export function formatSrgbAsHex(srgb) {
     return hexPart.length === 1 ? '0' + hexPart : hexPart;
   };
   
-  return `#${toHexPart(srgb.r)}${toHexPart(srgb.g)}${toHexPart(srgb.b)}`.toUpperCase();
+  return `#${toHexPart(srgb.r)}${toHexPart(srgb.g)}${toHexPart(srgb.b)}`;
 }
 
 /**
@@ -202,7 +201,7 @@ export function formatSrgbAsHex(srgb) {
  * @returns {boolean} True if the color is within gamut.
  */
 export function isSrgbInGamut(srgb) {
-  const epsilon = 0.005;
+  const epsilon = 0.00001;
   return srgb.r >= -epsilon && srgb.r <= 1 + epsilon &&
          srgb.g >= -epsilon && srgb.g <= 1 + epsilon &&
          srgb.b >= -epsilon && srgb.b <= 1 + epsilon;
