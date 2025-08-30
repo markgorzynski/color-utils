@@ -37,6 +37,8 @@ This is **the color perception library** for professional applications that need
 - **CIELAB/LCH** - Perceptually uniform color spaces
 - **Oklab/OkLCh** - Modern perceptually uniform spaces with improved hue uniformity
 - **XYZ** - CIE 1931 color space (D65 illuminant)
+- **Display P3** - Wide gamut RGB for modern displays
+- **Rec. 2020** - Ultra-wide gamut for UHDTV and HDR content
 
 ### Advanced Color Models
 - **Adaptive Oklab (AOkLab)** - Novel surround-adapted Oklab implementation
@@ -45,6 +47,9 @@ This is **the color perception library** for professional applications that need
 - **CIECAM16** - Complete color appearance model
   - Accounts for chromatic adaptation and viewing conditions
   - Predicts appearance correlates (Lightness J, Chroma C, Hue h)
+- **CAM16-UCS** - Perceptually uniform version of CIECAM16
+  - Better color difference calculations
+  - Uniform color interpolation
 
 ### Color Metrics & Analysis
 - **WCAG Contrast** - Web Content Accessibility Guidelines contrast ratios
@@ -57,6 +62,18 @@ This is **the color perception library** for professional applications that need
   - Find maximum chroma for target luminance
   - Adjust colors to meet specific contrast requirements
   - Integration with Adaptive Oklab for surround-aware adjustments
+- **Gamut Mapping** - CSS Color Module Level 4 compliant algorithms
+  - Binary search for maximum in-gamut chroma
+  - CUSP-based mapping for saturation preservation
+  - Adaptive mapping with rendering intents
+- **Chromatic Adaptation** - Transform colors between illuminants
+  - Bradford, CAT02, CAT16, Von Kries transforms
+  - Standard illuminants (D50, D65, A, F series)
+  - CCT calculation and white point utilities
+- **CSS Color Parsing** - Full CSS Color Level 4 support
+  - Parse modern syntax: lab(), lch(), oklab(), oklch(), color()
+  - Legacy formats: hex, rgb(), hsl(), named colors
+  - Format colors to any CSS notation
 
 ## 📦 Installation
 
@@ -71,7 +88,10 @@ import {
   parseSrgbHex, 
   srgbToLab, 
   calculateWcagContrast,
-  AdaptiveOklab 
+  AdaptiveOklab,
+  parseCSS,
+  gamutMapOklch,
+  srgbToDisplayP3
 } from 'color-utils';
 
 // Parse hex colors
@@ -89,6 +109,18 @@ console.log(contrast); // 3.99
 // Use Adaptive Oklab for dark viewing conditions
 const aokDark = new AdaptiveOklab({ surround: 'dark' });
 const aokColor = aokDark.fromSrgb(red);
+
+// Parse modern CSS colors
+const cssColor = parseCSS('oklch(70% 0.2 150deg)');
+const p3Color = parseCSS('color(display-p3 1 0 0.5)');
+
+// Convert to wide gamut Display P3
+const redP3 = srgbToDisplayP3(red);
+console.log(redP3); // { r: 0.9175, g: 0.2003, b: 0.1386 }
+
+// Gamut map out-of-gamut colors
+const vibrant = { L: 0.7, C: 0.5, h: 30 }; // Very vibrant OkLCh color
+const mapped = gamutMapOklch(vibrant, 'srgb'); // Bring into sRGB gamut
 ```
 
 ## 📚 API Documentation
