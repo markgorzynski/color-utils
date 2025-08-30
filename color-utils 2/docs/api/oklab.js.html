@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>oklab.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html">AdaptiveOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#fromSrgb">fromSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#fromXyz">fromXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toHex">toHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toLinearSrgb">toLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toSrgb">toSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toXyz">toXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#.fromHex">fromHex</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-aoklab.html">aoklab</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-chromaControl.html">chromaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-chromaControl.html#.adjustOklchForLabLightness">adjustOklchForLabLightness</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-chromaControl.html#.findMaxChromaForLabLightness">findMaxChromaForLabLightness</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-ciecam16.html">ciecam16</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-ciecam16.html#.srgbToCiecam16">srgbToCiecam16</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-cielab.html">cielab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToLch">labToLch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToSrgb">labToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToXyz">labToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.lchToLab">lchToLab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.lchToSrgb">lchToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.srgbToLab">srgbToLab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.srgbToLch">srgbToLch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.xyzToLab">xyzToLab</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-color-metrics.html">color-metrics</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateCiede2000">calculateCiede2000</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateOklchDifference">calculateOklchDifference</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateWcagContrast">calculateWcagContrast</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.getSrgbRelativeLuminance">getSrgbRelativeLuminance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.isWcagContrastSufficient">isWcagContrastSufficient</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-color-utils.html">color-utils</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-oklab.html">oklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.linearSrgbToOklab">linearSrgbToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToLinearSrgb">oklabToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToOklch">oklabToOklch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToSrgb">oklabToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklchToOklab">oklchToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklchToSrgb">oklchToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.srgbToOklab">srgbToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.srgbToOklch">srgbToOklch</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-srgb.html">srgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.formatSrgbAsHex">formatSrgbAsHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.linearSrgbToSrgb">linearSrgbToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.linearSrgbToXyz">linearSrgbToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.parseSrgbHex">parseSrgbHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.srgbToLinearSrgb">srgbToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.srgbToXyz">srgbToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.xyzToLinearSrgb">xyzToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.xyzToSrgb">xyzToSrgb</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-types.html">types</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-utils.html">utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.clamp">clamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.degreesToRadians">degreesToRadians</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.multiplyMatrixVector">multiplyMatrixVector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.radiansToDegrees">radiansToDegrees</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.signPreservingPow">signPreservingPow</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">oklab.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module oklab
+ * @description Functions for Oklab and OkLCh color space conversions.
+ * Includes transformations to/from Linear sRGB and sRGB (gamma-corrected),
+ * and between Oklab and OkLCh.
+ * Oklab components (L, a, b) and OkLCh components (L, C, h) follow standard definitions,
+ * with Oklab L typically in the 0-1 range.
+ */
+
+import {
+  multiplyMatrixVector,
+  degreesToRadians,
+  radiansToDegrees
+} from './utils.js';
+
+import {
+  srgbToLinearSrgb,
+  linearSrgbToSrgb
+} from './srgb.js';
+
+// Assuming SrgbColor, LinearSrgbColor, OklabColor, and OklchColor are defined in types.js
+
+
+// --- Constants for Oklab Transformations ---
+// Based on Björn Ottosson's Oklab formulation.
+
+// Step 1: Convert linear sRGB to "cone" responses (LMS)
+// Note: These are not necessarily actual cone responses but intermediate values in the Oklab model.
+const MATRIX_LINEAR_SRGB_TO_LMS_OKLAB = Object.freeze([
+  Object.freeze([0.4122214708, 0.5363325363, 0.0514459929]),
+  Object.freeze([0.2119034982, 0.6806995451, 0.1073969566]),
+  Object.freeze([0.0883024619, 0.2817188376, 0.6299787005]),
+]);
+
+// Step 2: Apply non-linearity (cube root) to LMS values (L_prime, M_prime, S_prime)
+
+// Step 3: Convert non-linear LMS' to Oklab (L, a, b)
+const MATRIX_LMS_PRIME_TO_OKLAB = Object.freeze([
+  Object.freeze([0.2104542553, 0.7936177850, -0.0040720468]),
+  Object.freeze([1.9779984951, -2.4285922050, 0.4505937099]),
+  Object.freeze([0.0259040371, 0.7827717662, -0.8086757660]),
+]);
+
+// Inverse transformations
+// Step 1: Convert Oklab (L,a,b) to non-linear LMS'
+const MATRIX_OKLAB_TO_LMS_PRIME = Object.freeze([
+  Object.freeze([1.0, 0.3963377774, 0.2158037573]),
+  Object.freeze([1.0, -0.1055613458, -0.0638541728]),
+  Object.freeze([1.0, -0.0894841775, -1.2914855480]),
+]);
+
+// Step 2: Apply inverse non-linearity (cubing) to LMS' values
+
+// Step 3: Convert LMS to Linear sRGB
+const MATRIX_LMS_OKLAB_TO_LINEAR_SRGB = Object.freeze([
+  Object.freeze([4.0767416621, -3.3077115913, 0.2309699292]),
+  Object.freeze([-1.2684380046, 2.6097574011, -0.3413193965]),
+  Object.freeze([-0.0041960863, -0.7034186147, 1.7076147010]),
+]);
+
+
+// --- Linear sRGB &lt;-> Oklab Conversions ---
+
+/**
+ * Converts a Linear sRGB color object to an Oklab color object.
+ * @param {LinearSrgbColor} linearSrgbColor - The Linear sRGB color object {r, g, b}.
+ * @returns {OklabColor} The Oklab color object {L, a, b}.
+ * @throws {TypeError} if linearSrgbColor is not a valid LinearSrgbColor object.
+ */
+export function linearSrgbToOklab(linearSrgbColor) {
+  if (typeof linearSrgbColor !== 'object' || linearSrgbColor === null ||
+      typeof linearSrgbColor.r !== 'number' || typeof linearSrgbColor.g !== 'number' || typeof linearSrgbColor.b !== 'number') {
+    throw new TypeError('Input linearSrgbColor must be an object with r, g, b number properties.');
+  }
+  const { r, g, b } = linearSrgbColor;
+
+  const lms = multiplyMatrixVector(MATRIX_LINEAR_SRGB_TO_LMS_OKLAB, [r, g, b]);
+
+  // Apply cube-root non-linearity. Handle negative results from matrix multiplication if they occur,
+  // though for in-gamut sRGB, LMS values should be positive.
+  // Oklab spec uses Math.cbrt which handles negative numbers correctly (maintains sign).
+  const lmsPrime = [
+    Math.cbrt(lms[0]),
+    Math.cbrt(lms[1]),
+    Math.cbrt(lms[2]),
+  ];
+
+  const labArray = multiplyMatrixVector(MATRIX_LMS_PRIME_TO_OKLAB, lmsPrime);
+
+  return { L: labArray[0], a: labArray[1], b: labArray[2] };
+}
+
+/**
+ * Converts an Oklab color object to a Linear sRGB color object.
+ * @param {OklabColor} oklabColor - The Oklab color object {L, a, b}.
+ * @returns {LinearSrgbColor} The Linear sRGB color object {r, g, b}.
+ * Components may be outside [0, 1] if Oklab color is out of sRGB gamut.
+ * @throws {TypeError} if oklabColor is not a valid OklabColor object.
+ */
+export function oklabToLinearSrgb(oklabColor) {
+  if (typeof oklabColor !== 'object' || oklabColor === null ||
+      typeof oklabColor.L !== 'number' || typeof oklabColor.a !== 'number' || typeof oklabColor.b !== 'number') {
+    throw new TypeError('Input oklabColor must be an object with L, a, b number properties.');
+  }
+  const { L, a, b } = oklabColor;
+
+  const lmsPrime = multiplyMatrixVector(MATRIX_OKLAB_TO_LMS_PRIME, [L, a, b]);
+
+  // Apply cubing (inverse of cube-root non-linearity)
+  const lms = [
+    lmsPrime[0] * lmsPrime[0] * lmsPrime[0],
+    lmsPrime[1] * lmsPrime[1] * lmsPrime[1],
+    lmsPrime[2] * lmsPrime[2] * lmsPrime[2],
+  ];
+
+  const rgbArray = multiplyMatrixVector(MATRIX_LMS_OKLAB_TO_LINEAR_SRGB, lms);
+
+  return { r: rgbArray[0], g: rgbArray[1], b: rgbArray[2] };
+}
+
+// --- Oklab &lt;-> OkLCh Conversions ---
+
+/**
+ * Converts an Oklab color object to an OkLCh color object.
+ * Hue (h) is returned in degrees [0, 360).
+ * @param {OklabColor} oklabColor - The Oklab color object {L, a, b}.
+ * @returns {OklchColor} The OkLCh color object {L, C, h}.
+ * @throws {TypeError} if oklabColor is not a valid OklabColor object.
+ */
+export function oklabToOklch(oklabColor) {
+  if (typeof oklabColor !== 'object' || oklabColor === null ||
+      typeof oklabColor.L !== 'number' || typeof oklabColor.a !== 'number' || typeof oklabColor.b !== 'number') {
+    throw new TypeError('Input oklabColor must be an object with L, a, b number properties.');
+  }
+  const { L, a, b } = oklabColor;
+
+  const C = Math.sqrt(a * a + b * b);
+  let h = radiansToDegrees(Math.atan2(b, a));
+
+  if (h &lt; 0) {
+    h += 360;
+  }
+  // Ensure h is exactly 0 for achromatic colors where C is very close to 0
+  if (C &lt; 1e-7) { // Tolerance for C being effectively zero
+      h = 0;
+  }
+
+  return { L, C, h };
+}
+
+/**
+ * Converts an OkLCh color object to an Oklab color object.
+ * Hue (h) is expected in degrees.
+ * @param {OklchColor} oklchColor - The OkLCh color object {L, C, h}.
+ * @returns {OklabColor} The Oklab color object {L, a, b}.
+ * @throws {TypeError} if oklchColor is not a valid OklchColor object.
+ */
+export function oklchToOklab(oklchColor) {
+  if (typeof oklchColor !== 'object' || oklchColor === null ||
+      typeof oklchColor.L !== 'number' || typeof oklchColor.C !== 'number' || typeof oklchColor.h !== 'number') {
+    throw new TypeError('Input oklchColor must be an object with L, C, h number properties.');
+  }
+  const { L, C, h } = oklchColor;
+
+  const hRadians = degreesToRadians(h);
+  const a = C * Math.cos(hRadians);
+  const b = C * Math.sin(hRadians);
+
+  return { L, a, b };
+}
+
+// --- sRGB &lt;-> Oklab Convenience Pipeline Functions ---
+
+/**
+ * Converts an sRGB color object directly to an Oklab color object.
+ * @param {SrgbColor} srgbColor - The sRGB color object {r, g, b}.
+ * @returns {OklabColor} The Oklab color object {L, a, b}.
+ */
+export function srgbToOklab(srgbColor) {
+  const linearSrgb = srgbToLinearSrgb(srgbColor); // from srgb.js
+  return linearSrgbToOklab(linearSrgb);
+}
+
+/**
+ * Converts an Oklab color object directly to an sRGB color object.
+ * @param {OklabColor} oklabColor - The Oklab color object {L, a, b}.
+ * @returns {SrgbColor} The sRGB color object {r, g, b}. (Components clamped by linearSrgbToSrgb if out of gamut)
+ */
+export function oklabToSrgb(oklabColor) {
+  const linearSrgb = oklabToLinearSrgb(oklabColor);
+  return linearSrgbToSrgb(linearSrgb); // from srgb.js
+}
+
+// --- sRGB &lt;-> OkLCh Convenience Pipeline Functions ---
+
+/**
+ * Converts an sRGB color object directly to an OkLCh color object.
+ * @param {SrgbColor} srgbColor - The sRGB color object {r, g, b}.
+ * @returns {OklchColor} The OkLCh color object {L, C, h}.
+ */
+export function srgbToOklch(srgbColor) {
+    const oklab = srgbToOklab(srgbColor);
+    return oklabToOklch(oklab);
+}
+
+/**
+ * Converts an OkLCh color object directly to an sRGB color object.
+ * @param {OklchColor} oklchColor - The OkLCh color object {L, C, h}.
+ * @returns {SrgbColor} The sRGB color object {r, g, b}.
+ */
+export function oklchToSrgb(oklchColor) {
+    const oklab = oklchToOklab(oklchColor);
+    return oklabToSrgb(oklab);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Tue May 06 2025 16:21:57 GMT-0700 (Pacific Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

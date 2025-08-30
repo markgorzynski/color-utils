@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AOkLab and ChromaControl Ramp Demonstrator</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e50; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .input-group input[type="number"], .input-group select {
+            width: calc(100% - 22px); padding: 10px; border: 1px solid #ddd; border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .input-group input[type="color"] { padding: 0; height: 30px; vertical-align: middle; }
+        button {
+            background-color: #3498db; color: white; padding: 10px 15px;
+            border: none; border-radius: 4px; cursor: pointer; font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover { background-color: #2980b9; }
+        .ramp-container { margin-top: 20px; padding: 10px; border: 1px solid #eee; border-radius: 4px; }
+        .ramp { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .swatch {
+            width: 60px; height: 60px; border: 1px solid #ccc;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-size: 10px; text-align: center; overflow: hidden;
+        }
+        .swatch-info { margin-top: 2px; }
+        pre { background-color: #eee; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        .section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+        .param-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AOkLab & ChromaControl Ramp Demonstrator</h1>
+        <p>This page demonstrates generating color ramps with constant WCAG contrast (via target CIELAB L*) using AOkLab for surround adaptation and hue/chroma characteristics.</p>
+
+        <div class="section">
+            <h2>Common Parameters</h2>
+            <div class="param-grid">
+                <div class="input-group">
+                    <label for="targetLabL">Target CIELAB L* (0-100):</label>
+                    <input type="number" id="targetLabL" value="60" min="0" max="100" step="1">
+                </div>
+                <div class="input-group">
+                    <label for="aokSurround">AOkLab Surround:</label>
+                    <select id="aokSurround">
+                        <option value="white">White</option>
+                        <option value="gray" selected>Gray</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+                 <div class="input-group">
+                    <label for="aokX0">AOkLab x0 (for Hue Correction):</label>
+                    <input type="number" id="aokX0" value="0.5" min="0.01" max="1" step="0.01">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Use Case 1: Chroma Ramp</h2>
+            <p>Constant AOkLab Hue, constant CIELAB L*, varying AOkLab Chroma from 0 to max sRGB gamut.</p>
+            <div class="param-grid">
+                <div class="input-group">
+                    <label for="chromaRampHue">Target AOkLab Hue (0-360):</label>
+                    <input type="number" id="chromaRampHue" value="265" min="0" max="360" step="1">
+                </div>
+                <div class="input-group">
+                    <label for="chromaRampSteps">Number of Chroma Steps (incl. neutral):</label>
+                    <input type="number" id="chromaRampSteps" value="6" min="2" max="20" step="1">
+                </div>
+            </div>
+            <button id="generateChromaRamp">Generate Chroma Ramp</button>
+            <div class="ramp-container">
+                <h3>Chroma Ramp Output:</h3>
+                <div id="chromaRampOutput" class="ramp"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Use Case 2: Hue Ramp</h2>
+            <p>Varying AOkLab Hue, constant CIELAB L*, maximum AOkLab Chroma for each hue.</p>
+            <div class="param-grid">
+                <div class="input-group">
+                    <label for="hueRampStart">Start AOkLab Hue (0-360):</label>
+                    <input type="number" id="hueRampStart" value="200" min="0" max="360" step="1">
+                </div>
+                <div class="input-group">
+                    <label for="hueRampEnd">End AOkLab Hue (0-360):</label>
+                    <input type="number" id="hueRampEnd" value="300" min="0" max="360" step="1">
+                </div>
+                <div class="input-group">
+                    <label for="hueRampIncrement">Hue Step Increment:</label>
+                    <input type="number" id="hueRampIncrement" value="20" min="1" max="45" step="1">
+                </div>
+            </div>
+            <button id="generateHueRamp">Generate Hue Ramp</button>
+            <div class="ramp-container">
+                <h3>Hue Ramp Output:</h3>
+                <div id="hueRampOutput" class="ramp"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Assume your color-utils library's main export is from './color-utils/index.js'
+        // For a truly stand-alone single HTML file without a server or complex relative paths,
+        // you would need a bundler (like Rollup.js or Webpack) to combine all JS into one file
+        // and then embed that.
+        // For this example, we'll import as if the files are served correctly.
+        // If running this HTML directly from filesystem, module imports might fail.
+        // You'd need to run it via a local server (e.g., `npx serve`).
+
+        import {
+            AdaptiveOklab,
+            findMaxAokChromaForLabL,
+            adjustAokColorToLabL,
+            formatSrgbAsHex, // For displaying hex codes
+            // getSrgbRelativeLuminance, // For verification if needed
+            // calculateWcagContrast // For verification if needed
+        } from './color-utils/index.js'; // Adjust this path if needed
+
+        // DOM Elements
+        const targetLabLInput = document.getElementById('targetLabL');
+        const aokSurroundSelect = document.getElementById('aokSurround');
+        const aokX0Input = document.getElementById('aokX0');
+
+        const chromaRampHueInput = document.getElementById('chromaRampHue');
+        const chromaRampStepsInput = document.getElementById('chromaRampSteps');
+        const generateChromaRampBtn = document.getElementById('generateChromaRamp');
+        const chromaRampOutputDiv = document.getElementById('chromaRampOutput');
+
+        const hueRampStartInput = document.getElementById('hueRampStart');
+        const hueRampEndInput = document.getElementById('hueRampEnd');
+        const hueRampIncrementInput = document.getElementById('hueRampIncrement');
+        const generateHueRampBtn = document.getElementById('generateHueRamp');
+        const hueRampOutputDiv = document.getElementById('hueRampOutput');
+
+        function displayRamp(colors, outputDiv) {
+            outputDiv.innerHTML = ''; // Clear previous ramp
+            if (!colors || colors.length === 0) {
+                outputDiv.innerHTML = '<p>No colors generated or an error occurred.</p>';
+                return;
+            }
+            colors.forEach(colorData => {
+                const swatch = document.createElement('div');
+                swatch.classList.add('swatch');
+                const srgbHex = colorData.srgbColor ? formatSrgbAsHex(colorData.srgbColor) : '#808080'; // Fallback
+                swatch.style.backgroundColor = srgbHex;
+
+                // Determine text color for contrast on swatch
+                const lum = colorData.relativeLuminanceY;
+                swatch.style.color = lum > 0.3 ? '#000' : '#FFF'; // Simple threshold
+
+                let info = `Hex: ${srgbHex}<br>`;
+                info += `AOk L: ${colorData.aokLCH.L.toFixed(3)}<br>`;
+                info += `AOk C: ${colorData.aokLCH.C.toFixed(3)}<br>`;
+                info += `AOk H: ${colorData.aokLCH.h.toFixed(1)}°<br>`;
+                info += `Rel Y: ${colorData.relativeLuminanceY.toFixed(4)}<br>`;
+                if (colorData.outOfGamut) {
+                    info += `<b>[OOG!]</b>`;
+                }
+                swatch.innerHTML = info;
+                outputDiv.appendChild(swatch);
+            });
+        }
+
+        generateChromaRampBtn.addEventListener('click', () => {
+            try {
+                const L_target_lab = parseFloat(targetLabLInput.value);
+                const H_target_aok = parseFloat(chromaRampHueInput.value);
+                const numChromaSteps = parseInt(chromaRampStepsInput.value, 10);
+                const aokOpts = {
+                    surround: aokSurroundSelect.value,
+                    x0: parseFloat(aokX0Input.value)
+                };
+                const commonChromaControlOpts = { adaptiveOklabOptions: aokOpts };
+
+                console.log(`Chroma Ramp: L*=${L_target_lab}, H_aok=${H_target_aok}, Surround=${aokOpts.surround}, Steps=${numChromaSteps}`);
+
+                const C_max_aok = findMaxAokChromaForLabL(H_target_aok, L_target_lab, commonChromaControlOpts);
+                console.log(`Max achievable AOkChroma for H=${H_target_aok}, L*=${L_target_lab}: ${C_max_aok.toFixed(4)}`);
+
+                const rampColors = [];
+                 if (C_max_aok < 0.0001 && numChromaSteps > 1) { // Max chroma is effectively zero
+                    console.warn("Max chroma is near zero. Generating only neutral.");
+                    const resultNeutral = adjustAokColorToLabL(
+                        { C: 0, h: H_target_aok }, L_target_lab, 'target',
+                        { ...commonChromaControlOpts, globalTargetAokChroma: 0 }
+                    );
+                    if (resultNeutral) rampColors.push(resultNeutral);
+                } else {
+                    for (let i = 0; i < numChromaSteps; i++) { // Changed to < from <= to make steps distinct
+                        const C_step_aok = (i / (numChromaSteps - 1)) * C_max_aok;
+                        const result = adjustAokColorToLabL(
+                            { C: C_step_aok, h: H_target_aok }, L_target_lab, 'target',
+                            { ...commonChromaControlOpts, globalTargetAokChroma: C_step_aok }
+                        );
+                        if (result) rampColors.push(result);
+                    }
+                }
+                displayRamp(rampColors, chromaRampOutputDiv);
+            } catch (error) {
+                chromaRampOutputDiv.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+                console.error("Error generating chroma ramp:", error);
+            }
+        });
+
+        generateHueRampBtn.addEventListener('click', () => {
+            try {
+                const L_target_lab = parseFloat(targetLabLInput.value);
+                const H_start_aok = parseFloat(hueRampStartInput.value);
+                const H_end_aok = parseFloat(hueRampEndInput.value);
+                const H_increment = parseFloat(hueRampIncrementInput.value);
+                const aokOpts = {
+                    surround: aokSurroundSelect.value,
+                    x0: parseFloat(aokX0Input.value)
+                };
+                const commonChromaControlOpts = { adaptiveOklabOptions: aokOpts };
+
+                console.log(`Hue Ramp: L*=${L_target_lab}, H_aok=${H_start_aok}-${H_end_aok} (step ${H_increment}), Surround=${aokOpts.surround}`);
+
+                const rampColors = [];
+                for (let H_step_aok = H_start_aok; H_step_aok <= H_end_aok; H_step_aok += H_increment) {
+                    const C_max_for_this_hue_aok = findMaxAokChromaForLabL(H_step_aok, L_target_lab, commonChromaControlOpts);
+                     console.log(`  H_aok=${H_step_aok}, Max C_aok found: ${C_max_for_this_hue_aok.toFixed(4)}`);
+
+                    if (C_max_for_this_hue_aok < 0.0001 && H_step_aok !==0) { // If effectively no chroma, generate neutral
+                         console.warn(`    Max chroma near zero for H_aok=${H_step_aok}. Generating neutral for this step.`);
+                         const resultNeutral = adjustAokColorToLabL(
+                             { C: 0, h: H_step_aok }, L_target_lab, 'target',
+                             { ...commonChromaControlOpts, globalTargetAokChroma: 0 }
+                         );
+                         if (resultNeutral) rampColors.push(resultNeutral);
+                         continue;
+                    }
+
+                    const result = adjustAokColorToLabL(
+                        { C: C_max_for_this_hue_aok, h: H_step_aok }, L_target_lab, 'target',
+                        { ...commonChromaControlOpts, globalTargetAokChroma: C_max_for_this_hue_aok }
+                    );
+                    if (result) rampColors.push(result);
+                }
+                displayRamp(rampColors, hueRampOutputDiv);
+            } catch (error) {
+                hueRampOutputDiv.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+                console.error("Error generating hue ramp:", error);
+            }
+        });
+
+    </script>
+</body>
+</html>

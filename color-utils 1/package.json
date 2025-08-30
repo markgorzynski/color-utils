@@ -1,0 +1,67 @@
+{
+  "name": "color-utils",
+  "version": "1.0.0",
+  "description": "A comprehensive JavaScript library for color space conversions, appearance modeling, and color metrics.",
+  "type": "module",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "LICENSE",
+    "README.md",
+    "docs"
+  ],
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests",
+    "lib": "src"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write \"src/**/*.js\" \"docs/**/*.md\" \"*.md\"",
+    "docs": "jsdoc -c jsdoc.json"
+  },
+  "keywords": [
+    "color",
+    "colour",
+    "conversion",
+    "srgb",
+    "xyz",
+    "cielab",
+    "lab",
+    "lch",
+    "oklab",
+    "oklch",
+    "aoklab",
+    "adaptive oklab",
+    "ciecam16",
+    "wcag",
+    "contrast",
+    "color difference",
+    "ciede2000",
+    "utilities",
+    "color science",
+    "chroma control",
+    "luminance"
+  ],
+  "author": "Mark Gorzynski",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TEMP/color-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TEMP/color-utils/issues"
+  },
+  "homepage": "https://github.com/TEMP/color-utils#readme",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "jsdoc": "^4.0.4",
+    "minami": "^1.2.3",
+    "prettier": "^2.5.0",
+    "taffydb": "^2.7.3"
+  }
+}

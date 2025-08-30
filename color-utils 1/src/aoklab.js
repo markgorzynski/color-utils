@@ -1,0 +1,359 @@
+/**
+ * @module aoklab
+ * @description Provides an AdaptiveOklab class for color space conversions.
+ * Adaptive Oklab is a modification of the Oklab color space that aims to remap
+ * lightness based on viewing surround conditions (e.g., white, gray, dark).
+ * The goal is to achieve a target perceived lightness (e.g., L_adapt = 40 in the
+ * original concept) across different surrounds, while preserving the hue
+ * characteristics of Oklab.
+ *
+ * The core mechanism involves:
+ * 1. Transforming an input color (sRGB or XYZ) to an initial LMS-like space.
+ * 2. Applying an adaptive power-law non-linearity (exponent 'p') to these LMS
+ * values, where 'p' is specific to the viewing surround. This 'p' is
+ * calculated to map a certain standard Oklab lightness (L_std) for that
+ * surround to the desired target adapted lightness.
+ * 3. Transforming these non-linear LMS' values to an Oklab-like space.
+ * 4. Applying a correction factor to the opponent channels (a and b) to
+ * compensate for the change in non-linearity from standard Oklab (exponent 1/3)
+ * to the adaptive exponent 'p', aiming to maintain hue appearance.
+ *
+ * This module includes forward (sRGB/XYZ to AdaptiveOklab) and reverse
+ * (AdaptiveOklab to sRGB/XYZ/Hex) transformations.
+ */
+
+import {
+  signPreservingPow,
+  multiplyMatrixVector
+} from './utils.js';
+import {
+  srgbToXyz,
+  xyzToSrgb,
+  parseSrgbHex,
+  formatSrgbAsHex, // For the new toHex() helper
+  linearSrgbToSrgb,
+  xyzToLinearSrgb, // Not strictly needed if toXyz goes via toLinearSrgb -> linearSrgbToXyz
+  linearSrgbToXyz
+} from './srgb.js';
+
+// Assuming SrgbColor, LinearSrgbColor, XyzColor, OklabColor are defined in types.js
+
+/**
+ * @typedef {'white' | 'gray' | 'dark'} AdaptiveOklabSurround
+ * Represents the viewing surround condition which determines the adaptive exponent.
+ * - 'white': Simulates a bright, reflective surround.
+ * - 'gray': Simulates an average, neutral surround.
+ * - 'dark': Simulates a dim or dark surround.
+ */
+
+/**
+ * @typedef {object} AdaptiveOklabOptions
+ * @property {AdaptiveOklabSurround} [surround='gray'] - The viewing surround condition.
+ * @property {number} [x0=0.5] - Representative LMS value for correction factor calculation.
+ * This value influences the magnitude of the hue correction.
+ */
+
+// --- Transformation Matrices ---
+// These matrices are used in the Oklab color model and its adaptive variants.
+
+/**
+ * Matrix to convert CIE XYZ (D65) to an LMS-like cone response space used in Oklab.
+ * This is the first step in the forward transformation.
+ * @private
+ */
+const MATRIX_XYZ_TO_LMS_AOKLAB = Object.freeze([
+  Object.freeze([0.8189330101, 0.3618667424, -0.1288597137]),
+  Object.freeze([0.0329845436, 0.9293118715, 0.0361456387]),
+  Object.freeze([0.0482003018, 0.2643662691, 0.6338517070]),
+]);
+
+/**
+ * Matrix to convert non-linearly compressed LMS' values to Oklab (L, a, b).
+ * This is the final matrix multiplication in the forward Oklab transformation.
+ * The 'AOKLAB' suffix here indicates its use within this adaptive model,
+ * though the matrix itself is standard for Oklab.
+ * @private
+ */
+const MATRIX_LMS_PRIME_TO_AOKLAB = Object.freeze([
+  Object.freeze([0.2104542553, 0.7936177850, -0.0040720468]), // L component
+  Object.freeze([1.9779984951, -2.4285922050, 0.4505937099]), // a component
+  Object.freeze([0.0259040371, 0.7827717662, -0.8086757660]), // b component
+]);
+
+/**
+ * Inverse Matrix: Converts Oklab (L, a, b) to non-linearly compressed LMS'.
+ * First step in the reverse transformation from Oklab.
+ * @private
+ */
+const MATRIX_AOKLAB_TO_LMS_PRIME = Object.freeze([
+  Object.freeze([1.0, 0.3963377774, 0.2158037573]),
+  Object.freeze([1.0, -0.1055613458, -0.0638541728]),
+  Object.freeze([1.0, -0.0894841775, -1.2914855480]),
+]);
+
+/**
+ * Inverse Matrix: Converts LMS cone responses (from Oklab model) to Linear sRGB.
+ * Final step in the reverse transformation to Linear sRGB.
+ * @private
+ */
+const MATRIX_LMS_AOKLAB_TO_LINEAR_SRGB = Object.freeze([
+  Object.freeze([4.0767416621, -3.3077115913, 0.2309699292]),
+  Object.freeze([-1.2684380046, 2.6097574011, -0.3413193965]),
+  Object.freeze([-0.0041960863, -0.7034186147, 1.7076147010]),
+]);
+
+/**
+ * Pre-calculated adaptive exponents 'p' for different surround conditions.
+ * These exponents are crucial for the adaptive lightness remapping. They are
+ * derived based on the principle that a specific standard Oklab lightness (L_std)
+ * for a given surround should map to a target adapted lightness (conceptually L_adapt = 40).
+ * The formula is approximately: p = ln(L_adapt/100) / (3 * ln(L_std_target_for_surround/100)).
+ * (Original derivation used L_adapt=40, so ln(0.4)).
+ * L_std targets from original concept: white=55.9, gray=48.3, dark=41.7.
+ * @private
+ */
+const SURROUND_EXPONENTS = Object.freeze({
+  white: 0.526, // Exponent for white surround
+  gray:  0.420, // Exponent for gray surround
+  dark:  0.349, // Exponent for dark surround
+});
+
+/**
+ * The standard non-linearity exponent used in the Oklab color space (1/3).
+ * Used in calculating the correction factor.
+ * @private
+ */
+const STANDARD_OKLAB_EXPONENT = 1 / 3;
+
+export class AdaptiveOklab {
+  /**
+   * Creates an instance of the AdaptiveOklab converter.
+   * The converter is configured for a specific viewing surround, which determines
+   * how lightness is adapted.
+   * @param {AdaptiveOklabOptions} [options={}] - Configuration options.
+   * @example
+   * const aokWhite = new AdaptiveOklab({ surround: 'white' });
+   * const aokGray = new AdaptiveOklab(); // Defaults to gray surround
+   */
+  constructor(options = {}) {
+    /**
+     * The configured viewing surround ('white', 'gray', or 'dark').
+     * @type {AdaptiveOklabSurround}
+     */
+    this.surround = options.surround || 'gray';
+
+    if (!SURROUND_EXPONENTS[this.surround]) {
+      console.warn(`AdaptiveOklab: Unknown surround "${this.surround}". Defaulting to "gray".`);
+      this.surround = 'gray';
+    }
+
+    /**
+     * The adaptive exponent 'p' selected based on the surround.
+     * This exponent is applied to the LMS-like cone responses.
+     * @type {number}
+     * @private
+     */
+    this._exponent = SURROUND_EXPONENTS[this.surround];
+
+    /**
+     * A representative LMS value (typically 0.5) used in the calculation
+     * of the hue correction factor.
+     * @type {number}
+     * @private
+     */
+    this._x0 = options.x0 || 0.5;
+
+    /**
+     * Correction factor applied to the a* and b* (chroma) channels.
+     * This factor, `x0^((1/3) - p)`, aims to preserve hue appearance when
+     * the non-linearity exponent changes from the standard Oklab (1/3) to 'p'.
+     * @type {number}
+     * @private
+     */
+    this._correctionFactor = Math.pow(this._x0, STANDARD_OKLAB_EXPONENT - this._exponent);
+  }
+
+  /**
+   * Converts a CIE XYZ (D65) color object to an Adaptive Oklab color object.
+   * The input XyzColor object should have its Y component in the 0-1 range (relative to D65 Y=1).
+   *
+   * The conversion steps are:
+   * 1. Transform XYZ to an LMS-like cone response space using `MATRIX_XYZ_TO_LMS_AOKLAB`.
+   * It's assumed this matrix is compatible with XYZ inputs where Y is in the 0-1 range.
+   * If the matrix was derived for XYZ where Y is 0-100, the input `xyzColor` components
+   * would need to be scaled by 100 prior to multiplication. This implementation assumes
+   * the matrix is for Y ~ 0-1. User should verify matrix source and scaling.
+   * 2. Apply the adaptive power-law non-linearity (exponent `this._exponent`) to each LMS channel
+   * using a sign-preserving power function.
+   * 3. Transform these non-linear LMS' values to preliminary Oklab (L', a', b') components
+   * using `MATRIX_LMS_PRIME_TO_AOKLAB`.
+   * 4. Apply the `this._correctionFactor` to the a' and b' components to get the final
+   * Adaptive Oklab a and b values. The L component remains L'.
+   *
+   * @param {XyzColor} xyzColor - The CIE XYZ color object {x, y, z}.
+   * @returns {OklabColor} The Adaptive Oklab color object {L, a, b}.
+   * @throws {TypeError} if xyzColor is not a valid XyzColor object.
+   */
+  fromXyz(xyzColor) {
+    if (typeof xyzColor !== 'object' || xyzColor === null ||
+        typeof xyzColor.x !== 'number' || typeof xyzColor.y !== 'number' || typeof xyzColor.z !== 'number') {
+      throw new TypeError('Input xyzColor must be an object with x, y, z number properties.');
+    }
+
+    // Step 1: XYZ to LMS
+    // IMPORTANT ASSUMPTION: MATRIX_XYZ_TO_LMS_AOKLAB is designed for XYZ values where Y is nominally 0-1.
+    // If this matrix expects Y to be on a 0-100 scale, then xyzColor components would need to be
+    // scaled (e.g., xyzColor.y * 100) before this multiplication.
+    // The current implementation proceeds assuming Y ~ 0-1 compatibility.
+    const lms = multiplyMatrixVector(MATRIX_XYZ_TO_LMS_AOKLAB, [xyzColor.x, xyzColor.y, xyzColor.z]);
+
+    // Step 2: Apply adaptive non-linearity to get LMS'
+    const lmsPrime = [
+      signPreservingPow(lms[0], this._exponent),
+      signPreservingPow(lms[1], this._exponent),
+      signPreservingPow(lms[2], this._exponent),
+    ];
+
+    // Step 3: Convert LMS' to preliminary Oklab (L', a', b')
+    const labArrayPrime = multiplyMatrixVector(MATRIX_LMS_PRIME_TO_AOKLAB, lmsPrime);
+
+    // Step 4: Apply correction factor to a' and b'
+    return {
+      L: labArrayPrime[0], // L component
+      a: labArrayPrime[1] * this._correctionFactor, // Corrected a component
+      b: labArrayPrime[2] * this._correctionFactor, // Corrected b component
+    };
+  }
+
+  /**
+   * Converts an sRGB color object to an Adaptive Oklab color object
+   * for the configured surround of this converter instance.
+   * @param {SrgbColor} srgbColor - The sRGB color object {r, g, b} (components 0-1).
+   * @returns {OklabColor} The Adaptive Oklab color object {L, a, b}.
+   * @throws {TypeError} if srgbColor is not a valid SrgbColor object.
+   * @example
+   * const aokConverter = new AdaptiveOklab({ surround: 'dark' });
+   * const adaptiveColor = aokConverter.fromSrgb({ r: 0.8, g: 0.2, b: 0.3 });
+   */
+  fromSrgb(srgbColor) {
+    if (typeof srgbColor !== 'object' || srgbColor === null ||
+        typeof srgbColor.r !== 'number' || typeof srgbColor.g !== 'number' || typeof srgbColor.b !== 'number') {
+      throw new TypeError('Input srgbColor must be an object with r, g, b number properties.');
+    }
+    // Convert sRGB to XYZ using the srgb.js module.
+    // srgbToXyz returns XyzColor with Y in the 0-1 range.
+    const xyzColor = srgbToXyz(srgbColor);
+    return this.fromXyz(xyzColor);
+  }
+
+  /**
+   * Static helper method to convert an sRGB hex string directly to an Adaptive Oklab color object.
+   * This creates a temporary AdaptiveOklab converter instance with the specified options.
+   * @param {string} hexString - The sRGB hex color string (e.g., "#FF0000", "aabbcc").
+   * @param {AdaptiveOklabOptions} [options={}] - Configuration options for the AdaptiveOklab conversion.
+   * @returns {OklabColor} The Adaptive Oklab color object {L, a, b}.
+   * @throws {TypeError|SyntaxError} if hexString is invalid or options are malformed.
+   * @example
+   * const darkAdaptedRed = AdaptiveOklab.fromHex("#FF0000", { surround: 'dark' });
+   * const grayAdaptedBlue = AdaptiveOklab.fromHex("#0000FF"); // uses default gray surround
+   */
+  static fromHex(hexString, options = {}) {
+    const srgbColor = parseSrgbHex(hexString); // from srgb.js
+    const converter = new AdaptiveOklab(options);
+    return converter.fromSrgb(srgbColor);
+  }
+
+  /**
+   * Converts an Adaptive Oklab color object back to a Linear sRGB color object.
+   * This method reverses the adaptive transformation applied by this instance.
+   *
+   * The conversion steps are:
+   * 1. Undo the hue correction factor from the 'a' and 'b' components.
+   * 2. Transform the resulting (L, a_uncorrected, b_uncorrected) Oklab-like values
+   * back to non-linear LMS' space using `MATRIX_AOKLAB_TO_LMS_PRIME`.
+   * 3. Undo the adaptive non-linearity by applying the inverse of `this._exponent`
+   * to each LMS' channel (sign-preserving).
+   * 4. Transform the resulting LMS values to Linear sRGB using `MATRIX_LMS_AOKLAB_TO_LINEAR_SRGB`.
+   *
+   * @param {OklabColor} adaptiveOklabColor - The Adaptive Oklab color {L, a, b} to convert.
+   * @returns {LinearSrgbColor} The corresponding Linear sRGB color object {r, g, b}.
+   * Components may be outside [0, 1] if the color is out of sRGB gamut.
+   * @throws {TypeError} if adaptiveOklabColor is not a valid OklabColor object.
+   */
+  toLinearSrgb(adaptiveOklabColor) {
+    if (typeof adaptiveOklabColor !== 'object' || adaptiveOklabColor === null ||
+        typeof adaptiveOklabColor.L !== 'number' || typeof adaptiveOklabColor.a !== 'number' || typeof adaptiveOklabColor.b !== 'number') {
+      throw new TypeError('Input adaptiveOklabColor must be an object with L, a, b number properties.');
+    }
+
+    const L = adaptiveOklabColor.L;
+    // Step 1: Undo the correction factor
+    // Ensure _correctionFactor is not zero to prevent division by zero.
+    // It's highly unlikely to be zero given its calculation, but good for robustness.
+    const correctionFactor = this._correctionFactor === 0 ? 1e-9 : this._correctionFactor;
+    const aUncorrected = adaptiveOklabColor.a / correctionFactor;
+    const bUncorrected = adaptiveOklabColor.b / correctionFactor;
+
+    // Step 2: Convert "uncorrected" Oklab to LMS'
+    const lmsPrime = multiplyMatrixVector(MATRIX_AOKLAB_TO_LMS_PRIME, [L, aUncorrected, bUncorrected]);
+
+    // Step 3: Undo adaptive non-linearity
+    // Ensure _exponent is not zero for division.
+    const exponent = this._exponent === 0 ? 1e-9 : this._exponent;
+    const inverseExponent = 1 / exponent;
+    const lms = [
+      signPreservingPow(lmsPrime[0], inverseExponent),
+      signPreservingPow(lmsPrime[1], inverseExponent),
+      signPreservingPow(lmsPrime[2], inverseExponent),
+    ];
+
+    // Step 4: Convert LMS to Linear sRGB
+    const linearRgbArray = multiplyMatrixVector(MATRIX_LMS_AOKLAB_TO_LINEAR_SRGB, lms);
+    return { r: linearRgbArray[0], g: linearRgbArray[1], b: linearRgbArray[2] };
+  }
+
+  /**
+   * Converts an Adaptive Oklab color object to an sRGB (gamma-corrected) color object
+   * using the settings of this converter instance.
+   * @param {OklabColor} adaptiveOklabColor - The Adaptive Oklab color {L, a, b}.
+   * @returns {SrgbColor} The sRGB color object {r, g, b}.
+   * @example
+   * const aokConverter = new AdaptiveOklab({ surround: 'white' });
+   * const aokColor = aokConverter.fromSrgb({r:0.5, g:0.5, b:0.5});
+   * const srgbOutput = aokConverter.toSrgb(aokColor);
+   */
+  toSrgb(adaptiveOklabColor) {
+    const linearSrgb = this.toLinearSrgb(adaptiveOklabColor);
+    return linearSrgbToSrgb(linearSrgb); // from srgb.js
+  }
+
+   /**
+   * Converts an Adaptive Oklab color object to a CIE XYZ (D65) color object
+   * using the settings of this converter instance.
+   * @param {OklabColor} adaptiveOklabColor - The Adaptive Oklab color {L, a, b}.
+   * @returns {XyzColor} The CIE XYZ color object {x, y, z} (Y in 0-1 range).
+   * @example
+   * const aokConverter = new AdaptiveOklab();
+   * const aokColor = { L: 0.6, a: 0.1, b: -0.05 };
+   * const xyzOutput = aokConverter.toXyz(aokColor);
+   */
+  toXyz(adaptiveOklabColor) {
+    const linearSrgb = this.toLinearSrgb(adaptiveOklabColor);
+    return linearSrgbToXyz(linearSrgb); // from srgb.js
+  }
+
+  /**
+   * Converts an Adaptive Oklab color object to an sRGB hex string
+   * using the settings of this converter instance.
+   * @param {OklabColor} adaptiveOklabColor - The Adaptive Oklab color {L, a, b}.
+   * @returns {string} The sRGB hex string (e.g., "#RRGGBB").
+   * @example
+   * const aokConverter = new AdaptiveOklab({ surround: 'dark' });
+   * const aokColor = aokConverter.fromHex("#336699");
+   * const hexOutput = aokConverter.toHex(aokColor);
+   */
+  toHex(adaptiveOklabColor) {
+    const srgbColor = this.toSrgb(adaptiveOklabColor);
+    return formatSrgbAsHex(srgbColor); // from srgb.js
+  }
+}

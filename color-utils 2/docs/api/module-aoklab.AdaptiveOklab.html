@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AdaptiveOklab - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html">AdaptiveOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#fromSrgb">fromSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#fromXyz">fromXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toHex">toHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toLinearSrgb">toLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toSrgb">toSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toXyz">toXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#.fromHex">fromHex</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-aoklab.html">aoklab</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-chromaControl.html">chromaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-chromaControl.html#.adjustOklchForLabLightness">adjustOklchForLabLightness</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-chromaControl.html#.findMaxChromaForLabLightness">findMaxChromaForLabLightness</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-ciecam16.html">ciecam16</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-ciecam16.html#.srgbToCiecam16">srgbToCiecam16</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-cielab.html">cielab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToLch">labToLch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToSrgb">labToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToXyz">labToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.lchToLab">lchToLab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.lchToSrgb">lchToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.srgbToLab">srgbToLab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.srgbToLch">srgbToLch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.xyzToLab">xyzToLab</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-color-metrics.html">color-metrics</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateCiede2000">calculateCiede2000</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateOklchDifference">calculateOklchDifference</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateWcagContrast">calculateWcagContrast</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.getSrgbRelativeLuminance">getSrgbRelativeLuminance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.isWcagContrastSufficient">isWcagContrastSufficient</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-color-utils.html">color-utils</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-oklab.html">oklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.linearSrgbToOklab">linearSrgbToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToLinearSrgb">oklabToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToOklch">oklabToOklch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToSrgb">oklabToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklchToOklab">oklchToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklchToSrgb">oklchToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.srgbToOklab">srgbToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.srgbToOklch">srgbToOklch</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-srgb.html">srgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.formatSrgbAsHex">formatSrgbAsHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.linearSrgbToSrgb">linearSrgbToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.linearSrgbToXyz">linearSrgbToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.parseSrgbHex">parseSrgbHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.srgbToLinearSrgb">srgbToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.srgbToXyz">srgbToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.xyzToLinearSrgb">xyzToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.xyzToSrgb">xyzToSrgb</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-types.html">types</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-utils.html">utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.clamp">clamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.degreesToRadians">degreesToRadians</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.multiplyMatrixVector">multiplyMatrixVector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.radiansToDegrees">radiansToDegrees</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.signPreservingPow">signPreservingPow</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">AdaptiveOklab</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-aoklab.html">aoklab</a>.</span>
+        
+        AdaptiveOklab
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="AdaptiveOklab"><span class="type-signature"></span>new AdaptiveOklab<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Creates an instance of the AdaptiveOklab converter.<br>
+The converter is configured for a specific viewing surround, which determines<br>
+how lightness is adapted.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line138">line 138</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>AdaptiveOklabOptions</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Configuration options.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const aokWhite = new AdaptiveOklab({ surround: 'white' });
+const aokGray = new AdaptiveOklab(); // Defaults to gray surround</code></pre>
+
+</div>
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="surround"><span class="type-signature"></span>surround<span class="type-signature"> :AdaptiveOklabSurround</span></h4>
+
+
+
+
+<div class="description">
+    <p>The configured viewing surround ('white', 'gray', or 'dark').</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line143">line 143</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>AdaptiveOklabSurround</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="fromSrgb"><span class="type-signature"></span>fromSrgb<span class="signature">(srgbColor)</span><span class="type-signature"> &rarr; {OklabColor}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Converts an sRGB color object to an Adaptive Oklab color object<br>
+for the configured surround of this converter instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>srgbColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>SrgbColor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The sRGB color object {r, g, b} (components 0-1).</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>if srgbColor is not a valid SrgbColor object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code>TypeError</code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>OklabColor</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The Adaptive Oklab color object {L, a, b}.</p>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const aokConverter = new AdaptiveOklab({ surround: 'dark' });
+const adaptiveColor = aokConverter.fromSrgb({ r: 0.8, g: 0.2, b: 0.3 });</code></pre>
+
+</div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="fromXyz"><span class="type-signature"></span>fromXyz<span class="signature">(xyzColor)</span><span class="type-signature"> &rarr; {OklabColor}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Converts a CIE XYZ (D65) color object to an Adaptive Oklab color object.<br>
+The input XyzColor object should have its Y component in the 0-1 range (relative to D65 Y=1).</p>
+<p>The conversion steps are:</p>
+<ol>
+<li>Transform XYZ to an LMS-like cone response space using <code>MATRIX_XYZ_TO_LMS_AOKLAB</code>.<br>
+It's assumed this matrix is compatible with XYZ inputs where Y is in the 0-1 range.<br>
+If the matrix was derived for XYZ where Y is 0-100, the input <code>xyzColor</code> components<br>
+would need to be scaled by 100 prior to multiplication. This implementation assumes<br>
+the matrix is for Y ~ 0-1. User should verify matrix source and scaling.</li>
+<li>Apply the adaptive power-law non-linearity (exponent <code>this._exponent</code>) to each LMS channel<br>
+using a sign-preserving power function.</li>
+<li>Transform these non-linear LMS' values to preliminary Oklab (L', a', b') components<br>
+using <code>MATRIX_LMS_PRIME_TO_AOKLAB</code>.</li>
+<li>Apply the <code>this._correctionFactor</code> to the a' and b' components to get the final<br>
+Adaptive Oklab a and b values. The L component remains L'.</li>
+</ol>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>xyzColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>XyzColor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The CIE XYZ color object {x, y, z}.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>if xyzColor is not a valid XyzColor object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code>TypeError</code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>OklabColor</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The Adaptive Oklab color object {L, a, b}.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="toHex"><span class="type-signature"></span>toHex<span class="signature">(adaptiveOklabColor)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Converts an Adaptive Oklab color object to an sRGB hex string<br>
+using the settings of this converter instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line355">line 355</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adaptiveOklabColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>OklabColor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The Adaptive Oklab color {L, a, b}.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>string</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The sRGB hex string (e.g., &quot;#RRGGBB&quot;).</p>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const aokConverter = new AdaptiveOklab({ surround: 'dark' });
+const aokColor = aokConverter.fromHex("#336699");
+const hexOutput = aokConverter.toHex(aokColor);</code></pre>
+
+</div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="toLinearSrgb"><span class="type-signature"></span>toLinearSrgb<span class="signature">(adaptiveOklabColor)</span><span class="type-signature"> &rarr; {LinearSrgbColor}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Converts an Adaptive Oklab color object back to a Linear sRGB color object.<br>
+This method reverses the adaptive transformation applied by this instance.</p>
+<p>The conversion steps are:</p>
+<ol>
+<li>Undo the hue correction factor from the 'a' and 'b' components.</li>
+<li>Transform the resulting (L, a_uncorrected, b_uncorrected) Oklab-like values<br>
+back to non-linear LMS' space using <code>MATRIX_AOKLAB_TO_LMS_PRIME</code>.</li>
+<li>Undo the adaptive non-linearity by applying the inverse of <code>this._exponent</code><br>
+to each LMS' channel (sign-preserving).</li>
+<li>Transform the resulting LMS values to Linear sRGB using <code>MATRIX_LMS_AOKLAB_TO_LINEAR_SRGB</code>.</li>
+</ol>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line283">line 283</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adaptiveOklabColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>OklabColor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The Adaptive Oklab color {L, a, b} to convert.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>if adaptiveOklabColor is not a valid OklabColor object.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code>TypeError</code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>LinearSrgbColor</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The corresponding Linear sRGB color object {r, g, b}.<br>
+Components may be outside [0, 1] if the color is out of sRGB gamut.</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="toSrgb"><span class="type-signature"></span>toSrgb<span class="signature">(adaptiveOklabColor)</span><span class="type-signature"> &rarr; {SrgbColor}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Converts an Adaptive Oklab color object to an sRGB (gamma-corrected) color object<br>
+using the settings of this converter instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line325">line 325</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adaptiveOklabColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>OklabColor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The Adaptive Oklab color {L, a, b}.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>SrgbColor</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The sRGB color object {r, g, b}.</p>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const aokConverter = new AdaptiveOklab({ surround: 'white' });
+const aokColor = aokConverter.fromSrgb({r:0.5, g:0.5, b:0.5});
+const srgbOutput = aokConverter.toSrgb(aokColor);</code></pre>
+
+</div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="toXyz"><span class="type-signature"></span>toXyz<span class="signature">(adaptiveOklabColor)</span><span class="type-signature"> &rarr; {XyzColor}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Converts an Adaptive Oklab color object to a CIE XYZ (D65) color object<br>
+using the settings of this converter instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line340">line 340</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>adaptiveOklabColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>OklabColor</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The Adaptive Oklab color {L, a, b}.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>XyzColor</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The CIE XYZ color object {x, y, z} (Y in 0-1 range).</p>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const aokConverter = new AdaptiveOklab();
+const aokColor = { L: 0.6, a: 0.1, b: -0.05 };
+const xyzOutput = aokConverter.toXyz(aokColor);</code></pre>
+
+</div>
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id=".fromHex"><span class="type-signature">(static) </span>fromHex<span class="signature">(hexString, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {OklabColor}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Static helper method to convert an sRGB hex string directly to an Adaptive Oklab color object.<br>
+This creates a temporary AdaptiveOklab converter instance with the specified options.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="aoklab.js.html">aoklab.js</a>, <a href="aoklab.js.html#line260">line 260</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hexString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The sRGB hex color string (e.g., &quot;#FF0000&quot;, &quot;aabbcc&quot;).</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>AdaptiveOklabOptions</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    {}
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Configuration options for the AdaptiveOklab conversion.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-throws">
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        <p>if hexString is invalid or options are malformed.</p>
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type"><code>TypeError</code></span>
+|
+
+<span class="param-type"><code>SyntaxError</code></span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
+</div>
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>OklabColor</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>The Adaptive Oklab color object {L, a, b}.</p>
+</div>
+
+    
+</div>
+
+
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint"><code>const darkAdaptedRed = AdaptiveOklab.fromHex("#FF0000", { surround: 'dark' });
+const grayAdaptedBlue = AdaptiveOklab.fromHex("#0000FF"); // uses default gray surround</code></pre>
+
+</div>
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Tue May 06 2025 16:21:57 GMT-0700 (Pacific Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

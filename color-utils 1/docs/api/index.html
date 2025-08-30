@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html">AdaptiveOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#fromSrgb">fromSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#fromXyz">fromXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toHex">toHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toLinearSrgb">toLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toSrgb">toSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#toXyz">toXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-aoklab.AdaptiveOklab.html#.fromHex">fromHex</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-aoklab.html">aoklab</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-chromaControl.html">chromaControl</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-chromaControl.html#.adjustOklchForLabLightness">adjustOklchForLabLightness</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-chromaControl.html#.findMaxChromaForLabLightness">findMaxChromaForLabLightness</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-ciecam16.html">ciecam16</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-ciecam16.html#.srgbToCiecam16">srgbToCiecam16</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-cielab.html">cielab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToLch">labToLch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToSrgb">labToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.labToXyz">labToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.lchToLab">lchToLab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.lchToSrgb">lchToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.srgbToLab">srgbToLab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.srgbToLch">srgbToLch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-cielab.html#.xyzToLab">xyzToLab</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-color-metrics.html">color-metrics</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateCiede2000">calculateCiede2000</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateOklchDifference">calculateOklchDifference</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.calculateWcagContrast">calculateWcagContrast</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.getSrgbRelativeLuminance">getSrgbRelativeLuminance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-color-metrics.html#.isWcagContrastSufficient">isWcagContrastSufficient</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-color-utils.html">color-utils</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-oklab.html">oklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.linearSrgbToOklab">linearSrgbToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToLinearSrgb">oklabToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToOklch">oklabToOklch</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklabToSrgb">oklabToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklchToOklab">oklchToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.oklchToSrgb">oklchToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.srgbToOklab">srgbToOklab</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-oklab.html#.srgbToOklch">srgbToOklch</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-srgb.html">srgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.formatSrgbAsHex">formatSrgbAsHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.linearSrgbToSrgb">linearSrgbToSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.linearSrgbToXyz">linearSrgbToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.parseSrgbHex">parseSrgbHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.srgbToLinearSrgb">srgbToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.srgbToXyz">srgbToXyz</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.xyzToLinearSrgb">xyzToLinearSrgb</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-srgb.html#.xyzToSrgb">xyzToSrgb</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-types.html">types</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-utils.html">utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.clamp">clamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.degreesToRadians">degreesToRadians</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.multiplyMatrixVector">multiplyMatrixVector</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.radiansToDegrees">radiansToDegrees</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-utils.html#.signPreservingPow">signPreservingPow</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>color-utils JavaScript Library</h1>
+<p><code>color-utils</code> is a modular, maintainable, and comprehensively documented JavaScript library designed for precise and efficient color manipulations and conversions across various color spaces including sRGB, Linear sRGB, CIE XYZ, CIELAB, CIELCh, Oklab, OkLCh, Adaptive Oklab, and CIECAM16.</p>
+<h2>Overview</h2>
+<p><code>color-utils</code> aims to provide a unified and intuitive API for working with colors in diverse color spaces. It supports accurate conversions, gamut checks, contrast calculations, and advanced chroma controls, making it an ideal tool for UI/UX designers, color scientists, developers, and accessibility experts.</p>
+<h2>Installation</h2>
+<pre class="prettyprint source lang-bash"><code>npm install color-utils
+</code></pre>
+<h2>Features</h2>
+<ul>
+<li><strong>Modular Design:</strong> ES6 modules structured by color spaces for clarity and maintainability.</li>
+<li><strong>Comprehensive Conversions:</strong> Full support for conversions between sRGB, Linear sRGB, XYZ (D65), CIELAB, CIELCh, Oklab, OkLCh, Adaptive Oklab, and CIECAM16.</li>
+<li><strong>Adaptive Color Models:</strong> Customizable Adaptive Oklab conversions based on viewing conditions (<code>white</code>, <code>gray</code>, <code>dark</code> surrounds).</li>
+<li><strong>Color Metrics:</strong> Accurate calculation of WCAG contrast ratios, CIEDE2000, and optimized OkLCh differences.</li>
+<li><strong>Advanced Chroma Control:</strong> Methods to find maximum chroma for target lightness while respecting sRGB gamut constraints.</li>
+<li><strong>Detailed Documentation:</strong> Extensive JSDoc comments, API reference, and practical examples.</li>
+</ul>
+<h2>Usage Examples</h2>
+<h3>Converting sRGB Hex to Adaptive Oklab (White Surround)</h3>
+<pre class="prettyprint source lang-javascript"><code>import { AdaptiveOklab } from 'color-utils';
+
+const adaptiveConverter = new AdaptiveOklab({ surround: 'white' });
+const adaptiveColor = AdaptiveOklab.fromHex('#4A90E2', { surround: 'white' });
+
+console.log(adaptiveColor);
+</code></pre>
+<h3>Calculating WCAG Contrast</h3>
+<pre class="prettyprint source lang-javascript"><code>import { calculateWcagContrast } from 'color-utils';
+
+const contrast = calculateWcagContrast('#FFFFFF', '#000000');
+console.log(`Contrast ratio: ${contrast}`);
+</code></pre>
+<h3>Finding Maximum Chroma for Given Lightness</h3>
+<pre class="prettyprint source lang-javascript"><code>import { findMaxChromaForLabLightness } from 'color-utils';
+
+const maxChroma = findMaxChromaForLabLightness(120, 50); // Hue = 120°, L* = 50
+console.log(`Maximum Chroma: ${maxChroma}`);
+</code></pre>
+<h2>API Overview</h2>
+<p>The core modules exported by <code>color-utils</code> include:</p>
+<h3>sRGB and Utilities</h3>
+<ul>
+<li><code>srgbToLinearSrgb</code>, <code>linearSrgbToSrgb</code></li>
+<li><code>srgbToXyz</code>, <code>xyzToSrgb</code></li>
+<li><code>parseSrgbHex</code>, <code>formatSrgbAsHex</code></li>
+</ul>
+<h3>CIELAB and CIELCh</h3>
+<ul>
+<li><code>xyzToLab</code>, <code>labToXyz</code></li>
+<li><code>labToLch</code>, <code>lchToLab</code></li>
+<li><code>srgbToLab</code>, <code>labToSrgb</code></li>
+</ul>
+<h3>Oklab and OkLCh</h3>
+<ul>
+<li><code>linearSrgbToOklab</code>, <code>oklabToLinearSrgb</code></li>
+<li><code>oklabToOklch</code>, <code>oklchToOklab</code></li>
+<li><code>srgbToOklab</code>, <code>oklabToSrgb</code></li>
+</ul>
+<h3>Adaptive Oklab</h3>
+<ul>
+<li><code>AdaptiveOklab</code> class supporting surround conditions (<code>white</code>, <code>gray</code>, <code>dark</code>)</li>
+</ul>
+<h3>CIECAM16</h3>
+<ul>
+<li><code>srgbToCiecam16</code></li>
+</ul>
+<h3>Color Metrics</h3>
+<ul>
+<li><code>getSrgbRelativeLuminance</code></li>
+<li><code>calculateWcagContrast</code>, <code>isWcagContrastSufficient</code></li>
+<li><code>calculateCiede2000</code>, <code>calculateOklchDifference</code></li>
+</ul>
+<h3>Chroma Control</h3>
+<ul>
+<li><code>findMaxChromaForLabLightness</code></li>
+<li><code>adjustOklchForLabLightness</code></li>
+</ul>
+<h2>Development</h2>
+<h3>Project Structure</h3>
+<pre class="prettyprint source"><code>color-utils/
+├── src/
+│   ├── utils.js
+│   ├── srgb.js
+│   ├── cielab.js
+│   ├── oklab.js
+│   ├── aoklab.js
+│   ├── ciecam16.js
+│   ├── color-metrics.js
+│   ├── chromaControl.js
+│   ├── types.js
+│   └── index.js
+├── tests/
+└── docs/
+</code></pre>
+<h3>Contributing</h3>
+<p>Contributions are welcome! Please ensure code is accompanied by relevant unit tests and comprehensive documentation updates.</p>
+<h2>License</h2>
+<p>This project is open-source and available under the MIT License.</p>
+<hr>
+<p>Happy color transforming! 🎨</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Tue May 06 2025 16:21:57 GMT-0700 (Pacific Daylight Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

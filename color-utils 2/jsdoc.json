@@ -1,0 +1,42 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["src"],
+    "includePattern": ".+\\.js$",
+    "excludePattern": "(^|\\/|\\\\)_" 
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "opts": {
+    "encoding": "utf8",
+    "destination": "./docs/api/", 
+    "recurse": true,
+    "verbose": true,
+    "readme": "./README.md", 
+    "template": "node_modules/minami", 
+    "tutorials": "./docs/tutorials" 
+  },
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": true,
+    "search": true, 
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": true
+    },
+    "applicationName": "color-utils API",
+    "meta": {
+      "title": "color-utils API Documentation",
+      "description": "API reference for the color-utils JavaScript library.",
+      "keyword": "color, srgb, cielab, oklab, ciecam16, color conversion"
+    }
+  },
+  "markdown": {
+    "parser": "gfm",
+    "hardwrap": true
+  }
+}
