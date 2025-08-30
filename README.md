@@ -1,6 +1,34 @@
 # Color Utils Library
 
-A comprehensive JavaScript library for color space conversions, appearance modeling, and color metrics.
+**The color science library for adaptive visual perception modeling and accessibility-driven color optimization.**
+
+> 🎯 **Our Focus**: While other libraries provide general color manipulation, Color Utils specializes in **perceptually-aware color operations** that adapt to viewing conditions and maintain accessibility standards.
+
+## 🌟 Why Color Utils?
+
+### Unique Capabilities You Won't Find Elsewhere
+
+| Feature | What It Does | Why It's Unique |
+|---------|--------------|-----------------|
+| **🎨 Adaptive Oklab** | Colors that adapt to viewing environment (dark/light/gray) | Only implementation available |
+| **♿ Chroma Control** | Maximize color vibrancy while guaranteeing WCAG compliance | Unique accessibility optimization |
+| **🔬 CIECAM16** | Professional color appearance modeling | Complete implementation (rare in JS) |
+| **👁️ Surround Correction** | Accurate color perception in different contexts | Not found in other libraries |
+
+### Perfect For
+
+- 🌓 **Dark/Light Mode** - Colors that look consistent across themes
+- ♿ **Accessibility-Critical Apps** - Guarantee WCAG compliance without sacrificing design
+- 🎬 **Professional Color Grading** - Cinema-quality color appearance modeling  
+- 📊 **Scientific Visualization** - Perceptually accurate color scales
+
+### Not Just Another Color Library
+
+This is **the color perception library** for professional applications that need:
+- Colors that adapt to viewing conditions
+- Guaranteed accessibility with maximum vibrancy
+- Research-grade color science accuracy
+- Zero dependencies and optimal performance
 
 ## 🎨 Features
 
@@ -215,6 +243,20 @@ const deltaE = calculateCiede2000(lab1, lab2); // Small difference
 | `chromaControl.js` | Advanced chroma/luminance control | `findMaxAokChromaForLabL`, `adjustAokColorToLabL` |
 | `utils.js` | Mathematical utilities | `degreesToRadians`, `clamp`, `multiplyMatrixVector` |
 
+## 🚀 Unique Capabilities Roadmap
+
+### Current Exclusive Features
+- ✅ **Adaptive Oklab** - Surround-aware perceptual model (white/gray/dark)
+- ✅ **Chroma Control** - WCAG-constrained color optimization
+- ✅ **Integrated Stack** - CIECAM16 + Oklab + WCAG in one library
+
+### Coming Soon: More Industry-First Features
+- 🔜 **Multi-illuminant Adaptation** - Colors for different light sources
+- 🔜 **CVD Optimization** - Maintain distinguishability for color blindness
+- 🔜 **HDR Color Mapping** - Oklab-based tone mapping for HDR displays
+- 🔜 **Time-of-Day Adaptation** - Colors that adjust to circadian rhythms
+- 🔜 **Age-Related Adaptation** - Account for vision changes with age
+
 ## 🔬 Technical Details
 
 ### Optimizations from v22
@@ -223,11 +265,20 @@ const deltaE = calculateCiede2000(lab1, lab2); // Small difference
 - Optimized matrix multiplication
 - Efficient CIEDE2000 implementation
 
-### Unique Aspects
-1. **Adaptive Oklab**: One of the few (if not only) public implementations of surround-adapted Oklab
-2. **Integrated Chroma Control**: Sophisticated algorithms for maintaining WCAG contrast while maximizing colorfulness
-3. **Complete CIECAM16**: Full implementation of the latest CIE color appearance model
-4. **Modular Architecture**: Clean separation of concerns with well-documented modules
+### What Sets Us Apart
+
+#### 🎯 **Our Niche: Professional Color Perception**
+We're not trying to be everything to everyone. We're the specialized library for:
+- Applications requiring sophisticated color perception modeling
+- Systems that must guarantee accessibility compliance
+- Professional tools needing research-grade color science
+
+#### 🏆 **Competitive Advantages**
+1. **Unique Features**: Capabilities you literally cannot find elsewhere
+2. **Deep Expertise**: PhD-level color science implementations
+3. **Focused Mission**: Adaptation and accessibility, not feature bloat
+4. **Zero Dependencies**: No supply chain risks or version conflicts
+5. **Performance**: Optimized algorithms with direct conversion paths
 
 ## 🧪 Testing
 
