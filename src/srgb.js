@@ -64,8 +64,10 @@ function linearChannelToSrgb(c) {
 
 /**
  * Converts gamma-corrected sRGB to linear sRGB.
- * @param {SrgbColor} srgbColor - The sRGB color { r, g, b }.
- * @returns {LinearSrgbColor} The linear sRGB color { r, g, b }.
+ * Input range: [0, 1] per channel expected, values outside are processed without clamping
+ * Output range: [0, 1] per channel for valid inputs, not clamped
+ * @param {SrgbColor} srgbColor - The sRGB color { r, g, b } with values 0-1.
+ * @returns {LinearSrgbColor} The linear sRGB color { r, g, b } with values 0-1.
  */
 export function srgbToLinearSrgb({ r, g, b }) {
   return {
@@ -77,8 +79,10 @@ export function srgbToLinearSrgb({ r, g, b }) {
 
 /**
  * Converts linear sRGB to gamma-corrected sRGB.
- * @param {LinearSrgbColor} linearSrgbColor - The linear sRGB color { r, g, b }.
- * @returns {SrgbColor} The gamma-corrected sRGB color { r, g, b }.
+ * Input range: [0, 1] per channel expected, values outside are processed without clamping
+ * Output range: [0, 1] per channel for valid inputs, not clamped
+ * @param {LinearSrgbColor} linearSrgbColor - The linear sRGB color { r, g, b } with values 0-1.
+ * @returns {SrgbColor} The gamma-corrected sRGB color { r, g, b } with values 0-1.
  */
 export function linearSrgbToSrgb({ r, g, b }) {
   return {
@@ -92,9 +96,11 @@ export function linearSrgbToSrgb({ r, g, b }) {
 
 /**
  * Converts linear sRGB to CIE XYZ (D65).
- * Values are scaled 0-1 for compatibility with the rest of the library.
+ * Input range: [0, 1] per channel expected, values outside are processed without clamping
+ * Output range: X[0, 0.95047], Y[0, 1.0], Z[0, 1.08883] for valid sRGB inputs (normalized scale)
+ * Note: XYZ values are normalized (Y=1 for white) not the traditional 0-100 scale
  * @param {LinearSrgbColor} linearSrgbColor - The linear sRGB color { r, g, b }.
- * @returns {XyzColor} The CIE XYZ color { X, Y, Z } scaled 0-1.
+ * @returns {XyzColor} The CIE XYZ color { X, Y, Z } in normalized scale.
  */
 export function linearSrgbToXyz({ r, g, b }) {
   const [X, Y, Z] = multiplyMatrixVector(MATRIX_LINEAR_SRGB_TO_XYZ_D65, [r, g, b]);

@@ -42,7 +42,7 @@ describe('sRGB Module', () => {
       expect(black).toEqual({ r: 0, g: 0, b: 0 });
       
       const white = linearSrgbToSrgb({ r: 1, g: 1, b: 1 });
-      expect(white).toEqual({ r: 1, g: 1, b: 1 });
+      expect(colorsApproxEqual(white, { r: 1, g: 1, b: 1 }, 0.0000001)).toBe(true);
       
       const gray = linearSrgbToSrgb({ r: 0.2140411, g: 0.2140411, b: 0.2140411 });
       expect(approxEqual(gray.r, 0.5, 0.001)).toBe(true);

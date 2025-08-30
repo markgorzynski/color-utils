@@ -134,8 +134,14 @@ function _findAokLForTargetCIELuminance(
     midAokL = (lowAokL + highAokL) / 2;
     if (Math.abs(highAokL - lowAokL) < 1e-7) break;
 
-    const candidateAokLCH = { L: midAokL, C: targetAokChroma, h: targetAokHue };
-    const currentSrgb = aokConverter.toSrgb(candidateAokLCH);
+    // Convert LCH to Lab for AdaptiveOklab
+    const hueRad = (targetAokHue * Math.PI) / 180;
+    const candidateAokLab = { 
+      L: midAokL, 
+      a: targetAokChroma * Math.cos(hueRad), 
+      b: targetAokChroma * Math.sin(hueRad) 
+    };
+    const currentSrgb = aokConverter.toSrgb(candidateAokLab);
     const currentCieY = getSrgbRelativeLuminance(currentSrgb);
     const epsilonGamut = 1e-7;
     const currentOutOfGamut =
@@ -157,8 +163,14 @@ function _findAokLForTargetCIELuminance(
     else { highAokL = midAokL; }
   }
 
-  const finalEvalAokLCH = { L: bestMatch.foundAokL, C: targetAokChroma, h: targetAokHue };
-  bestMatch.finalSrgb = aokConverter.toSrgb(finalEvalAokLCH);
+  // Convert LCH to Lab for AdaptiveOklab
+  const finalHueRad = (targetAokHue * Math.PI) / 180;
+  const finalEvalAokLab = { 
+    L: bestMatch.foundAokL, 
+    a: targetAokChroma * Math.cos(finalHueRad), 
+    b: targetAokChroma * Math.sin(finalHueRad) 
+  };
+  bestMatch.finalSrgb = aokConverter.toSrgb(finalEvalAokLab);
   bestMatch.finalCieY = getSrgbRelativeLuminance(bestMatch.finalSrgb);
   const epsilonGamutFinal = 1e-7;
   bestMatch.finalOutOfGamut =
