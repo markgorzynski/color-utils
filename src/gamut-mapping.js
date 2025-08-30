@@ -13,8 +13,6 @@ import { isSrgbInGamut } from './srgb.js';
 import { srgbToDisplayP3, displayP3ToSrgb, isDisplayP3InSrgbGamut } from './display-p3.js';
 import { clamp } from './utils.js';
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').OklchColor} OklchColor */
 
 // --- Constants ---
 

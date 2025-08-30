@@ -21,10 +21,6 @@
  *   - Clamping should be applied separately when needed
  */
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').XyzColor} XyzColor */
-/** @typedef {import('./types.js').LabColor} LabColor */
-/** @typedef {import('./types.js').LchColor} LchColor */
 
 import {
   D65_WHITE_POINT_XYZ,

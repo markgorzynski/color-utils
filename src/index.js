@@ -8,19 +8,6 @@
 
 // --- Type Definitions ---
 // Re-export all types for TypeScript/JSDoc support
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').LinearSrgbColor} LinearSrgbColor */
-/** @typedef {import('./types.js').XyzColor} XyzColor */
-/** @typedef {import('./types.js').LabColor} LabColor */
-/** @typedef {import('./types.js').LchColor} LchColor */
-/** @typedef {import('./types.js').OklabColor} OklabColor */
-/** @typedef {import('./types.js').OklchColor} OklchColor */
-/** @typedef {import('./types.js').Ciecam16ViewingConditions} Ciecam16ViewingConditions */
-/** @typedef {import('./types.js').Ciecam16Appearance} Ciecam16Appearance */
-/** @typedef {import('./types.js').AdaptiveOklabOptions} AdaptiveOklabOptions */
-/** @typedef {import('./types.js').AokChromaControlOptions} AokChromaControlOptions */
-/** @typedef {import('./types.js').AdjustAokColorOptions} AdjustAokColorOptions */
-/** @typedef {import('./types.js').AokChromaControlResult} AokChromaControlResult */
 
 // --- Utility Functions ---
 export {
@@ -112,7 +99,6 @@ export {
 // --- Gamut Management ---
 export {
   // Validation
-  isSrgbInGamut,
   isLabInTypicalRange,
   isOklabInTypicalRange,
   isValidSrgbObject,

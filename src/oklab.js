@@ -10,10 +10,6 @@
  */
 
 // --- Type Imports for JSDoc ---
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').LinearSrgbColor} LinearSrgbColor */
-/** @typedef {import('./types.js').OklabColor} OklabColor */
-/** @typedef {import('./types.js').OklchColor} OklchColor */
 
 // --- Utility Imports ---
 import {

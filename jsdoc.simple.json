@@ -1,0 +1,21 @@
+{
+  "source": {
+    "include": ["src"],
+    "exclude": ["src/types.js"]
+  },
+  "opts": {
+    "destination": "./docs/api",
+    "recurse": true,
+    "readme": "./README.md"
+  },
+  "plugins": [],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": false,
+      "useLongnameInNav": false
+    }
+  }
+}

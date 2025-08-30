@@ -48,11 +48,6 @@
  */
 
 // --- Type Imports for JSDoc ---
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').XyzColor} XyzColor */
-/** @typedef {import('./types.js').OklabColor} OklabColor */
-/** @typedef {import('./types.js').OklchColor} OklchColor */
-/** @typedef {import('./types.js').AdaptiveOklabOptions} AdaptiveOklabOptions */
 /**
  * @typedef {object} AokChromaControlOptions
  * @property {AdaptiveOklabOptions} [adaptiveOklabOptions]

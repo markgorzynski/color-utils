@@ -14,9 +14,6 @@
 import { srgbToCiecam16 } from './ciecam16.js';
 import { srgbToXyz, xyzToSrgb } from './srgb.js';
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').Ciecam16Appearance} Ciecam16Appearance */
-/** @typedef {import('./types.js').Ciecam16ViewingConditions} Ciecam16ViewingConditions */
 
 /**
  * @typedef {Object} Cam16UcsColor

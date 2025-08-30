@@ -25,11 +25,6 @@
  */
 
 // --- Type Imports for JSDoc ---
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').XyzColor} XyzColor */ // As defined: Y ~0-1 or Y ~0-100 based on context.
-/** @typedef {import('./types.js').CiecamSurroundType} CiecamSurroundType */
-/** @typedef {import('./types.js').Ciecam16ViewingConditions} Ciecam16ViewingConditions */
-/** @typedef {import('./types.js').Ciecam16Appearance} Ciecam16Appearance */
 
 // --- Utility and Color Module Imports ---
 import { D65_WHITE_POINT_XYZ, multiplyMatrixVector, degreesToRadians, radiansToDegrees, normalizeHue, signPreservingPow } from './utils.js';

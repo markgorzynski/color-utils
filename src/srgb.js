@@ -10,9 +10,6 @@
 
 import { multiplyMatrixVector, clamp } from './utils.js';
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').LinearSrgbColor} LinearSrgbColor */
-/** @typedef {import('./types.js').XyzColor} XyzColor */
 
 // --- Conversion Matrices ---
 

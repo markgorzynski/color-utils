@@ -13,7 +13,6 @@ import { oklabToSrgb, srgbToOklab, oklchToSrgb, srgbToOklch } from './oklab.js';
 import { displayP3ToSrgb, srgbToDisplayP3 } from './display-p3.js';
 import { clamp } from './utils.js';
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
 
 // --- CSS Color Parsing ---
 

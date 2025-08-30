@@ -13,7 +13,6 @@
 import { multiplyMatrixVector } from './utils.js';
 import { srgbToLinearSrgb, linearSrgbToSrgb } from './srgb.js';
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
 /** @typedef {{r: number, g: number, b: number}} DisplayP3Color */
 /** @typedef {{r: number, g: number, b: number}} LinearDisplayP3Color */
 

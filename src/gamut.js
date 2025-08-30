@@ -12,9 +12,6 @@
  * @see RANGE_STANDARDS.md for detailed conventions
  */
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').LabColor} LabColor */
-/** @typedef {import('./types.js').OklabColor} OklabColor */
 
 /**
  * Checks if an sRGB color is within the standard [0,1] gamut.

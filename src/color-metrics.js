@@ -5,10 +5,6 @@
  * difference (between Lab colors), and a perceptual difference metric for Oklch colors.
  */
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
-/** @typedef {import('./types.js').LinearSrgbColor} LinearSrgbColor */
-/** @typedef {import('./types.js').LabColor} LabColor */
-/** @typedef {import('./types.js').OklchColor} OklchColor */
 
 import { degreesToRadians, radiansToDegrees, normalizeHue } from './utils.js';
 import { parseSrgbHex, srgbToLinearSrgb } from './srgb.js';

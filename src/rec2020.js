@@ -11,7 +11,6 @@
 import { multiplyMatrixVector } from './utils.js';
 import { srgbToLinearSrgb, linearSrgbToSrgb } from './srgb.js';
 
-/** @typedef {import('./types.js').SrgbColor} SrgbColor */
 /** @typedef {{r: number, g: number, b: number}} Rec2020Color */
 /** @typedef {{r: number, g: number, b: number}} LinearRec2020Color */
 
