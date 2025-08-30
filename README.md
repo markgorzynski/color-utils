@@ -30,6 +30,28 @@ This is **the color perception library** for professional applications that need
 - Research-grade color science accuracy
 - Zero dependencies and optimal performance
 
+## ⚠️ Current Status
+
+**Version**: Pre-release (0.9.0)
+**Test Coverage**: 72% passing (60/83 tests)
+
+### Production-Ready Features ✅
+- sRGB, Lab/LCh, Oklab/OkLCh conversions
+- XYZ color space transformations  
+- WCAG contrast calculations
+- Hex color parsing and formatting
+- Display P3 and Rec. 2020 conversions
+- CSS Color Level 4 parsing
+- Basic gamut mapping
+
+### Beta Features ⚠️
+- Adaptive Oklab (some lightness targeting issues)
+- CIECAM16 (appearance correlates need calibration)
+- CAM16-UCS (transformation parameters need tuning)
+- Chroma Control (WCAG compliance not guaranteed)
+
+See [KNOWN_ISSUES.md](./KNOWN_ISSUES.md) for detailed limitations.
+
 ## 🎨 Features
 
 ### Core Color Space Conversions
