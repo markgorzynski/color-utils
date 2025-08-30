@@ -1,6 +1,6 @@
 # 🎨 Color Utils
 
-[![npm version](https://img.shields.io/npm/v/color-utils-adaptive.svg)](https://www.npmjs.com/package/color-utils-adaptive)
+[![npm version](https://img.shields.io/npm/v/@markgorzynski/color-utils.svg)](https://www.npmjs.com/package/@markgorzynski/color-utils)
 [![Test Status](https://img.shields.io/badge/tests-129%2F135%20passing-green)](./tests)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](./index.d.ts)
@@ -12,11 +12,11 @@
 ## 🚀 Quick Start
 
 ```bash
-npm install color-utils-adaptive
+npm install @markgorzynski/color-utils
 ```
 
 ```javascript
-import { AdaptiveOklab, parseCSS, calculateWcagContrast } from 'color-utils-adaptive';
+import { AdaptiveOklab, parseCSS, calculateWcagContrast } from '@markgorzynski/color-utils';
 
 // Adaptive color for dark mode
 const adapter = new AdaptiveOklab({ surround: 'dark' });
@@ -144,11 +144,11 @@ const contrast = calculateWcagContrast(color1, color2);
 ### Installation
 
 ```bash
-npm install color-utils-adaptive
+npm install @markgorzynski/color-utils
 # or
-yarn add color-utils-adaptive
+yarn add @markgorzynski/color-utils
 # or
-pnpm add color-utils-adaptive
+pnpm add @markgorzynski/color-utils
 ```
 
 ### Basic Usage
@@ -159,7 +159,7 @@ import {
   srgbToLab, 
   calculateWcagContrast,
   AdaptiveOklab
-} from 'color-utils-adaptive';
+} from '@markgorzynski/color-utils';
 
 // Parse hex colors
 const red = parseSrgbHex('#FF0000');
@@ -181,7 +181,7 @@ const aokColor = aokDark.fromSrgb(red);
 ### Advanced Usage
 
 ```javascript
-import { parseCSS, gamutMapOklch, srgbToDisplayP3 } from 'color-utils-adaptive';
+import { parseCSS, gamutMapOklch, srgbToDisplayP3 } from '@markgorzynski/color-utils';
 
 // Parse modern CSS colors
 const cssColor = parseCSS('oklch(70% 0.2 150deg)');
@@ -334,7 +334,7 @@ Mark Gorzynski
 ## 🔗 Links
 
 - [GitHub Repository](https://github.com/markgorzynski/color-utils)
-- [NPM Package](https://www.npmjs.com/package/color-utils-adaptive)
+- [NPM Package](https://www.npmjs.com/package/@markgorzynski/color-utils)
 - [Issue Tracker](https://github.com/markgorzynski/color-utils/issues)
 
 ## 🏷️ Keywords
