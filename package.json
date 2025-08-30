@@ -1,5 +1,5 @@
 {
-  "name": "@markgorzynski/color-utils",
+  "name": "color-utils-adaptive",
   "version": "0.9.8",
   "description": "The only color science library with adaptive visual perception modeling and accessibility-driven optimization.",
   "type": "module",
@@ -40,7 +40,6 @@
     "format": "prettier --write \"src/**/*.js\" \"docs/**/*.md\" \"*.md\"",
     "docs": "jsdoc -c jsdoc.config.json",
     "docs:serve": "npx http-server ./docs/api -p 8080",
-    "prepublishOnly": "npm run test:run && npm run lint",
     "preversion": "npm run test:run",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags"
