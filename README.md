@@ -68,12 +68,12 @@ const contrast = calculateWcagContrast(color1, color2);
 
 ## 📚 Documentation
 
-- 📖 [API Reference](./docs/api/)
 - 🎯 [Examples](./examples/)
 - 🔄 [Migration Guide](./MIGRATION.md)
 - 🐛 [Troubleshooting](./TROUBLESHOOTING.md)
 - ⚠️ [Known Issues](./KNOWN_ISSUES.md)
 - 📏 [Range Standards](./RANGE_STANDARDS.md)
+- 📖 [TypeScript Definitions](./index.d.ts)
 
 ## ✅ Production-Ready Features
 - sRGB, Lab/LCh, Oklab/OkLCh conversions (100% test coverage)
@@ -335,7 +335,6 @@ Mark Gorzynski
 
 - [GitHub Repository](https://github.com/markgorzynski/color-utils)
 - [NPM Package](https://www.npmjs.com/package/@markgorzynski/color-utils)
-- [API Documentation](https://markgorzynski.github.io/color-utils/)
 - [Issue Tracker](https://github.com/markgorzynski/color-utils/issues)
 
 ## 🏷️ Keywords
