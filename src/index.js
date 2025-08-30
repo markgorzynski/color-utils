@@ -114,3 +114,54 @@ export {
   findMaxAokChromaForLabL,
   adjustAokColorToLabL
 } from './chromaControl.js';
+
+// --- Display P3 Color Space ---
+export {
+  // Constants
+  DISPLAY_P3_PRIMARIES,
+  MATRIX_LINEAR_DISPLAY_P3_TO_XYZ_D65,
+  MATRIX_XYZ_TO_LINEAR_DISPLAY_P3_D65,
+  // Conversions
+  displayP3ToLinearDisplayP3,
+  linearDisplayP3ToDisplayP3,
+  srgbToDisplayP3,
+  displayP3ToSrgb,
+  linearDisplayP3ToXyz,
+  xyzToLinearDisplayP3,
+  // Utilities
+  isDisplayP3InSrgbGamut,
+  benefitsFromDisplayP3,
+  formatDisplayP3ForCSS,
+  parseDisplayP3FromCSS
+} from './display-p3.js';
+
+// --- Gamut Mapping ---
+export {
+  // Gamut checking
+  isInGamut,
+  needsGamutMapping,
+  getGamutVolumeRatio,
+  // CSS Color 4 algorithm
+  gamutMapOklch,
+  gamutMapSrgb,
+  // Alternative algorithms
+  clipGamutMapping,
+  cuspGamutMapping,
+  adaptiveGamutMapping
+} from './gamut-mapping.js';
+
+// --- Chromatic Adaptation ---
+export {
+  // Illuminants
+  ILLUMINANTS,
+  // Main adaptation function
+  chromaticAdaptation,
+  // Common conversions
+  xyzD65ToD50,
+  xyzD50ToD65,
+  // Utilities
+  calculateCCT,
+  getWhitePointFromTemperature,
+  findClosestIlluminant,
+  needsChromaticAdaptation
+} from './chromatic-adaptation.js';
