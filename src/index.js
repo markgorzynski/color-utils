@@ -165,3 +165,55 @@ export {
   findClosestIlluminant,
   needsChromaticAdaptation
 } from './chromatic-adaptation.js';
+
+// --- CSS Color Module Level 4 Parsing ---
+export {
+  // Main parsing and formatting
+  parseCSS,
+  formatCSS
+} from './css-color-parser.js';
+
+// --- Rec. 2020 Color Space ---
+export {
+  // Constants
+  REC2020_PRIMARIES,
+  MATRIX_LINEAR_REC2020_TO_XYZ_D65,
+  MATRIX_XYZ_TO_LINEAR_REC2020_D65,
+  // Conversions
+  rec2020ToLinearRec2020,
+  linearRec2020ToRec2020,
+  srgbToRec2020,
+  rec2020ToSrgb,
+  linearRec2020ToXyz,
+  xyzToLinearRec2020,
+  // Utilities
+  isRec2020InSrgbGamut,
+  benefitsFromRec2020,
+  formatRec2020ForCSS,
+  parseRec2020FromCSS,
+  getRec2020GamutRatio
+} from './rec2020.js';
+
+// --- CAM16-UCS Uniform Color Space ---
+export {
+  // Conversions
+  cam16ToUcs,
+  ucsToCam16,
+  srgbToCam16Ucs,
+  cam16UcsToSrgb,
+  // Polar coordinates
+  ucsToPolar,
+  polarToUcs,
+  // Color difference
+  cam16UcsColorDifference,
+  calculateCam16UcsDifference,
+  // Interpolation
+  interpolateCam16Ucs,
+  interpolateCam16UcsPolar,
+  // Gradient generation
+  generateCam16UcsGradient,
+  // Color harmony
+  findComplementaryCam16Ucs,
+  generateAnalogousCam16Ucs,
+  generateTriadicCam16Ucs
+} from './cam16-ucs.js';
