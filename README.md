@@ -5,6 +5,8 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue)](./index.d.ts)
 
+📚 **[View Full Documentation](https://markgorzynski.github.io/color-utils/)** | 🔗 **[NPM Package](https://www.npmjs.com/package/@markgorzynski/color-utils)**
+
 **The only color science library with adaptive visual perception modeling and accessibility-driven optimization.**
 
 > 🎯 **Unique Focus**: While other libraries provide general color manipulation, Color Utils specializes in **perceptually-aware color operations** that adapt to viewing conditions and maintain accessibility standards.
@@ -333,6 +335,7 @@ Mark Gorzynski
 
 ## 🔗 Links
 
+- [📚 Documentation](https://markgorzynski.github.io/color-utils/)
 - [GitHub Repository](https://github.com/markgorzynski/color-utils)
 - [NPM Package](https://www.npmjs.com/package/@markgorzynski/color-utils)
 - [Issue Tracker](https://github.com/markgorzynski/color-utils/issues)
