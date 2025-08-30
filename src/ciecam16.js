@@ -32,7 +32,7 @@
 /** @typedef {import('./types.js').Ciecam16Appearance} Ciecam16Appearance */
 
 // --- Utility and Color Module Imports ---
-import { D65_WHITE_POINT_XYZ, multiplyMatrixVector, degreesToRadians, radiansToDegrees, normalizeHue } from './utils.js';
+import { D65_WHITE_POINT_XYZ, multiplyMatrixVector, degreesToRadians, radiansToDegrees, normalizeHue, signPreservingPow } from './utils.js';
 import { srgbToXyz } from './srgb.js'; // Returns XYZ with Y in 0-1 range for D65
 
 // --- CIECAM16 Constants and Matrices ---

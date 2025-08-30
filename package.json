@@ -1,17 +1,30 @@
 {
-  "name": "color-utils",
-  "version": "1.0.0",
-  "description": "A comprehensive JavaScript library for color space conversions, appearance modeling, and color metrics.",
+  "name": "@markgorzynski/color-utils",
+  "version": "0.9.8",
+  "description": "The only color science library with adaptive visual perception modeling and accessibility-driven optimization.",
   "type": "module",
   "main": "src/index.js",
   "files": [
     "src",
+    "index.d.ts",
     "LICENSE",
     "README.md",
-    "docs"
+    "MIGRATION.md",
+    "RANGE_STANDARDS.md",
+    "TROUBLESHOOTING.md",
+    "examples"
   ],
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./src/index.js",
+      "require": "./src/index.js"
+    }
+  },
+  "types": "./index.d.ts",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.0.0"
   },
   "directories": {
     "doc": "docs",
@@ -25,7 +38,12 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint src/**/*.js",
     "format": "prettier --write \"src/**/*.js\" \"docs/**/*.md\" \"*.md\"",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.config.json",
+    "docs:serve": "npx http-server ./docs/api -p 8080",
+    "prepublishOnly": "npm run test:run && npm run lint",
+    "preversion": "npm run test:run",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "keywords": [
     "color",
@@ -66,12 +84,16 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TEMP/color-utils.git"
+    "url": "git+https://github.com/markgorzynski/color-utils.git"
   },
   "bugs": {
-    "url": "https://github.com/TEMP/color-utils/issues"
+    "url": "https://github.com/markgorzynski/color-utils/issues"
   },
-  "homepage": "https://github.com/TEMP/color-utils#readme",
+  "homepage": "https://github.com/markgorzynski/color-utils#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/markgorzynski"
+  },
   "devDependencies": {
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",

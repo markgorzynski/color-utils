@@ -2,14 +2,23 @@
  * @module cielab
  * @description Functions for CIE L*a*b* and CIE L*C*h_ab conversions and pipelines to/from XYZ and sRGB.
  *
- * IMPORTANT:
- *   - None of these functions perform any clamping.
- *   - Intermediate and output values may lie outside their usual ranges if out-of-gamut.
- *   - Clamping should be applied separately when formatting or displaying colors.
+ * RANGE CONVENTIONS:
+ * ==================
+ * Input/Output Ranges:
+ *   - XYZ: X,Y,Z in 0-1 scale (Y=1 for white point)
+ *   - Lab: L in 0-100, a/b typically -128 to +127
+ *   - LCh: L in 0-100, C in 0+, h in 0-360 degrees
+ *   - sRGB: r,g,b in 0-1
  *
- * XYZ Value Scaling Convention:
- *   - This module assumes XyzColor objects with Y in 0-1 scale.
- *   - Internally handles scaling against the reference white (Y_n=100) correctly.
+ * Internal Processing:
+ *   - Reference white (D65): X=95.047, Y=100, Z=108.883 (0-100 scale)
+ *   - XYZ inputs are scaled from 0-1 to 0-100 for CIELAB math
+ *   - XYZ outputs are scaled from 0-100 back to 0-1
+ *
+ * IMPORTANT:
+ *   - None of these functions perform any clamping
+ *   - Out-of-gamut colors will produce values outside typical ranges
+ *   - Clamping should be applied separately when needed
  */
 
 /** @typedef {import('./types.js').SrgbColor} SrgbColor */

@@ -1,0 +1,74 @@
+# Development files
+tests/
+coverage/
+.vitest/
+vitest.config.js
+jsdoc.config.json
+
+# Documentation source
+docs/api/
+
+# Legacy code
+legacy/
+
+# CI/CD
+.github/
+.travis.yml
+.circleci/
+
+# Development configs
+.eslintrc*
+.prettierrc*
+.editorconfig
+.nvmrc
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build artifacts (if any)
+dist/
+build/
+
+# Development notes
+TODO.md
+NOTES.md
+*.draft.md
+
+# Git files (already excluded by npm)
+.git/
+.gitignore
+
+# Keep these documentation files
+!README.md
+!LICENSE
+!MIGRATION.md
+!TROUBLESHOOTING.md
+!RANGE_STANDARDS.md
+!KNOWN_ISSUES.md
+!CHANGELOG.md
+!CONTRIBUTING.md
+
+# Keep examples
+!examples/
+
+# Keep TypeScript definitions
+!index.d.ts
+
+# Keep source
+!src/

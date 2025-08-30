@@ -190,7 +190,25 @@ export class AdaptiveOklab {
 
     this._exponent = SURROUND_EXPONENTS[this.surround];
     this._x0 = (typeof options.x0 === 'number' && !Number.isNaN(options.x0)) ? options.x0 : 0.5;
-    this._correctionFactor = Math.pow(this._x0, STANDARD_OKLAB_EXPONENT - this._exponent);
+    // Handle x0 = 0 edge case to avoid infinity
+    if (this._x0 === 0) {
+      this._correctionFactor = 0; // Will make a and b channels 0
+    } else {
+      this._correctionFactor = Math.pow(this._x0, STANDARD_OKLAB_EXPONENT - this._exponent);
+    }
+  }
+  
+  /**
+   * Get internal adaptation parameters (for testing/debugging)
+   * @returns {Object} Object containing FL (luminance factor) and other params
+   */
+  get params() {
+    return {
+      FL: this._exponent, // Luminance adaptation factor (surround exponent)
+      x0: this._x0,       // Reference LMS value
+      correctionFactor: this._correctionFactor,
+      surround: this.surround
+    };
   }
 
   /**
@@ -235,7 +253,15 @@ export class AdaptiveOklab {
    * @throws {TypeError} if `xyzColor` is not a valid XyzColor object.
    */
   fromXyz(xyzColor) {
-    // Type validation for xyzColor is handled by xyzToLinearSrgb
+    // Type validation for xyzColor
+    if (
+      typeof xyzColor !== 'object' || xyzColor === null ||
+      typeof xyzColor.X !== 'number' || Number.isNaN(xyzColor.X) ||
+      typeof xyzColor.Y !== 'number' || Number.isNaN(xyzColor.Y) ||
+      typeof xyzColor.Z !== 'number' || Number.isNaN(xyzColor.Z)
+    ) {
+      throw new TypeError('Input xyzColor must be an object with X, Y, Z valid number properties.');
+    }
     const linearSrgbColor = xyzToLinearSrgb(xyzColor); // Convert XYZ (Y~0-1) to Linear sRGB
     return this._fromLinearSrgbToAOkLab(linearSrgbColor);
   }
@@ -252,7 +278,15 @@ export class AdaptiveOklab {
    * console.log(adaptiveColor); // { L: ..., a: ..., b: ... }
    */
   fromSrgb(srgbColor) {
-    // Type validation for srgbColor is handled by srgbToLinearSrgb
+    // Type validation for srgbColor
+    if (
+      typeof srgbColor !== 'object' || srgbColor === null ||
+      typeof srgbColor.r !== 'number' || Number.isNaN(srgbColor.r) ||
+      typeof srgbColor.g !== 'number' || Number.isNaN(srgbColor.g) ||
+      typeof srgbColor.b !== 'number' || Number.isNaN(srgbColor.b)
+    ) {
+      throw new TypeError('Input srgbColor must be an object with r, g, b valid number properties.');
+    }
     const linearSrgbColor = srgbToLinearSrgb(srgbColor);
     return this._fromLinearSrgbToAOkLab(linearSrgbColor);
   }
@@ -292,10 +326,16 @@ export class AdaptiveOklab {
     const { L } = adaptiveOklabColor;
     // Step 1: Undo the hue correction factor
     // Handle potential division by zero if _correctionFactor is somehow zero
-    const correctionFactorInv = (this._correctionFactor === 0 || Number.isNaN(this._correctionFactor)) ?
-                                Infinity : 1 / this._correctionFactor;
-    const aUncorrected = adaptiveOklabColor.a * correctionFactorInv;
-    const bUncorrected = adaptiveOklabColor.b * correctionFactorInv;
+    let aUncorrected, bUncorrected;
+    if (this._correctionFactor === 0 || Number.isNaN(this._correctionFactor)) {
+      // If correction factor is 0, assume a and b were zeroed out in forward transform
+      aUncorrected = 0;
+      bUncorrected = 0;
+    } else {
+      const correctionFactorInv = 1 / this._correctionFactor;
+      aUncorrected = adaptiveOklabColor.a * correctionFactorInv;
+      bUncorrected = adaptiveOklabColor.b * correctionFactorInv;
+    }
 
     // Step 2: Convert "uncorrected" Oklab-like (L, a', b') to non-linear LMS'_adaptive (using Oklab M2_inverse)
     const lmsPrimeAdaptive = multiplyMatrixVector(MATRIX_OKLAB_TO_LMS_PRIME, [L, aUncorrected, bUncorrected]);

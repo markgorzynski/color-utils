@@ -109,6 +109,23 @@ export {
   calculateOklchDifference
 } from './color-metrics.js';
 
+// --- Gamut Management ---
+export {
+  // Validation
+  isSrgbInGamut,
+  isLabInTypicalRange,
+  isOklabInTypicalRange,
+  isValidSrgbObject,
+  isValidLabObject,
+  // Clamping and scaling
+  clampSrgb,
+  scaleToSrgbGamut,
+  clamp,
+  // Analysis
+  getSrgbGamutInfo,
+  getMaxChroma
+} from './gamut.js';
+
 // --- Chroma Control ---
 export {
   findMaxAokChromaForLabL,
