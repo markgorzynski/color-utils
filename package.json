@@ -1,6 +1,6 @@
 {
   "name": "@markgorzynski/color-utils",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "The only color science library with adaptive visual perception modeling and accessibility-driven optimization.",
   "type": "module",
   "main": "src/index.js",
