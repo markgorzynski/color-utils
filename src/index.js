@@ -106,7 +106,6 @@ export {
   // Clamping and scaling
   clampSrgb,
   scaleToSrgbGamut,
-  clamp,
   // Analysis
   getSrgbGamutInfo,
   getMaxChroma
