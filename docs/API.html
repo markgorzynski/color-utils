@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Utils - API Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+        h1, h2, h3, h4, h5 {
+            color: #333;
+            margin-top: 2rem;
+        }
+        h1 {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 3rem;
+        }
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre code {
+            background: none;
+            padding: 0;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            padding-left: 2rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.5rem 1rem;
+            background: #667eea;
+            color: white;
+            border-radius: 6px;
+        }
+        .back-link:hover {
+            background: #764ba2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-link">← Back to Documentation</a>
+    <h1 id="api-documentation">API Documentation</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#color-space-conversions">Color Space Conversions</a><ul>
+<li><a href="#srgb">sRGB</a></li>
+<li><a href="#cielab">CIELAB</a></li>
+<li><a href="#oklab">Oklab</a></li>
+<li><a href="#display-p3">Display P3</a></li>
+<li><a href="#rec-2020">Rec. 2020</a></li>
+</ul>
+</li>
+<li><a href="#advanced-features">Advanced Features</a><ul>
+<li><a href="#adaptive-oklab">Adaptive Oklab</a></li>
+<li><a href="#ciecam16">CIECAM16</a></li>
+<li><a href="#cam16-ucs">CAM16-UCS</a></li>
+</ul>
+</li>
+<li><a href="#color-metrics">Color Metrics</a></li>
+<li><a href="#gamut-management">Gamut Management</a></li>
+<li><a href="#css-parsing">CSS Parsing</a></li>
+<li><a href="#utility-functions">Utility Functions</a></li>
+</ul>
+<h2 id="color-space-conversions">Color Space Conversions</h2>
+<h3 id="srgb">sRGB</h3>
+<h4 id="parsesrgbhexhex-string-srgbcolor--null"><code>parseSrgbHex(hex: string): SrgbColor | null</code></h4>
+<p>Parses a hex color string into an sRGB color object.</p>
+<pre><code class="language-javascript">const color = parseSrgbHex(&#39;#FF5733&#39;);
+// Returns: { r: 1, g: 0.341, b: 0.2 }
+</code></pre>
+<h4 id="formatsrgbashexsrgb-srgbcolor-string"><code>formatSrgbAsHex(srgb: SrgbColor): string</code></h4>
+<p>Formats an sRGB color object as a hex string.</p>
+<pre><code class="language-javascript">const hex = formatSrgbAsHex({ r: 1, g: 0.341, b: 0.2 });
+// Returns: &#39;#FF5733&#39;
+</code></pre>
+<h4 id="srgbtolinearsrgbsrgb-srgbcolor-linearsrgbcolor"><code>srgbToLinearSrgb(srgb: SrgbColor): LinearSrgbColor</code></h4>
+<p>Converts gamma-corrected sRGB to linear sRGB.</p>
+<h4 id="linearsrgbtosrgblinear-linearsrgbcolor-srgbcolor"><code>linearSrgbToSrgb(linear: LinearSrgbColor): SrgbColor</code></h4>
+<p>Converts linear sRGB to gamma-corrected sRGB.</p>
+<h4 id="srgbtoxyzsrgb-srgbcolor-xyzcolor"><code>srgbToXyz(srgb: SrgbColor): XyzColor</code></h4>
+<p>Converts sRGB to CIE XYZ color space.</p>
+<h4 id="xyztosrgbxyz-xyzcolor-srgbcolor"><code>xyzToSrgb(xyz: XyzColor): SrgbColor</code></h4>
+<p>Converts CIE XYZ to sRGB color space.</p>
+<h3 id="cielab">CIELAB</h3>
+<h4 id="srgbtolabsrgb-srgbcolor-labcolor"><code>srgbToLab(srgb: SrgbColor): LabColor</code></h4>
+<p>Converts sRGB to CIELAB color space.</p>
+<pre><code class="language-javascript">const lab = srgbToLab({ r: 0.5, g: 0.5, b: 0.5 });
+// Returns: { L: 53.39, a: 0, b: 0 }
+</code></pre>
+<h4 id="labtosrgblab-labcolor-srgbcolor"><code>labToSrgb(lab: LabColor): SrgbColor</code></h4>
+<p>Converts CIELAB to sRGB color space.</p>
+<h4 id="labtolchlab-labcolor-lchcolor"><code>labToLch(lab: LabColor): LchColor</code></h4>
+<p>Converts CIELAB to CIELCH (cylindrical representation).</p>
+<pre><code class="language-javascript">const lch = labToLch({ L: 50, a: 20, b: 30 });
+// Returns: { L: 50, C: 36.06, h: 56.31 }
+</code></pre>
+<h4 id="lchtolablch-lchcolor-labcolor"><code>lchToLab(lch: LchColor): LabColor</code></h4>
+<p>Converts CIELCH to CIELAB.</p>
+<h4 id="srgbtolchsrgb-srgbcolor-lchcolor"><code>srgbToLch(srgb: SrgbColor): LchColor</code></h4>
+<p>Direct conversion from sRGB to CIELCH.</p>
+<h4 id="lchtosrgblch-lchcolor-srgbcolor"><code>lchToSrgb(lch: LchColor): SrgbColor</code></h4>
+<p>Direct conversion from CIELCH to sRGB.</p>
+<h3 id="oklab">Oklab</h3>
+<h4 id="srgbtooklabsrgb-srgbcolor-oklabcolor"><code>srgbToOklab(srgb: SrgbColor): OklabColor</code></h4>
+<p>Converts sRGB to Oklab perceptual color space.</p>
+<pre><code class="language-javascript">const oklab = srgbToOklab({ r: 0.5, g: 0.7, b: 0.3 });
+// Returns: { L: 0.698, a: -0.072, b: 0.106 }
+</code></pre>
+<h4 id="oklabtosrgboklab-oklabcolor-srgbcolor"><code>oklabToSrgb(oklab: OklabColor): SrgbColor</code></h4>
+<p>Converts Oklab to sRGB.</p>
+<h4 id="oklabtooklchoklab-oklabcolor-oklchcolor"><code>oklabToOklch(oklab: OklabColor): OklchColor</code></h4>
+<p>Converts Oklab to OkLCH (cylindrical representation).</p>
+<h4 id="oklchtooklaboklch-oklchcolor-oklabcolor"><code>oklchToOklab(oklch: OklchColor): OklabColor</code></h4>
+<p>Converts OkLCH to Oklab.</p>
+<h4 id="srgbtooklchsrgb-srgbcolor-oklchcolor"><code>srgbToOklch(srgb: SrgbColor): OklchColor</code></h4>
+<p>Direct conversion from sRGB to OkLCH.</p>
+<h4 id="oklchtosrgboklch-oklchcolor-srgbcolor"><code>oklchToSrgb(oklch: OklchColor): SrgbColor</code></h4>
+<p>Direct conversion from OkLCH to sRGB.</p>
+<h3 id="display-p3">Display P3</h3>
+<h4 id="srgbtodisplayp3srgb-srgbcolor-displayp3color"><code>srgbToDisplayP3(srgb: SrgbColor): DisplayP3Color</code></h4>
+<p>Converts sRGB to Display P3 color space.</p>
+<pre><code class="language-javascript">const p3 = srgbToDisplayP3({ r: 1, g: 0, b: 0 });
+// Returns: { r: 0.9175, g: 0.2003, b: 0.1386 }
+</code></pre>
+<h4 id="displayp3tosrgbp3-displayp3color-srgbcolor"><code>displayP3ToSrgb(p3: DisplayP3Color): SrgbColor</code></h4>
+<p>Converts Display P3 to sRGB.</p>
+<h4 id="parsedisplayp3fromcsscss-string-displayp3color--null"><code>parseDisplayP3FromCSS(css: string): DisplayP3Color | null</code></h4>
+<p>Parses CSS color(display-p3) syntax.</p>
+<h3 id="rec-2020">Rec. 2020</h3>
+<h4 id="srgbtorec2020srgb-srgbcolor-rec2020color"><code>srgbToRec2020(srgb: SrgbColor): Rec2020Color</code></h4>
+<p>Converts sRGB to Rec. 2020 color space.</p>
+<h4 id="rec2020tosrgbrec2020-rec2020color-srgbcolor"><code>rec2020ToSrgb(rec2020: Rec2020Color): SrgbColor</code></h4>
+<p>Converts Rec. 2020 to sRGB.</p>
+<h4 id="parserec2020fromcsscss-string-rec2020color--null"><code>parseRec2020FromCSS(css: string): Rec2020Color | null</code></h4>
+<p>Parses CSS color(rec2020) syntax.</p>
+<h2 id="advanced-features">Advanced Features</h2>
+<h3 id="adaptive-oklab">Adaptive Oklab</h3>
+<p>The <code>AdaptiveOklab</code> class provides surround-aware color adaptation.</p>
+<h4 id="constructor">Constructor</h4>
+<pre><code class="language-javascript">new AdaptiveOklab(options?: AdaptiveOklabOptions)
+</code></pre>
+<p>Options:</p>
+<ul>
+<li><code>surround</code>: &#39;white&#39; | &#39;gray&#39; | &#39;dark&#39; (default: &#39;gray&#39;)</li>
+<li><code>x0</code>: number (default: 0.5) - Hue correction factor</li>
+</ul>
+<h4 id="methods">Methods</h4>
+<h5 id="fromsrgbsrgb-srgbcolor-oklabcolor"><code>fromSrgb(srgb: SrgbColor): OklabColor</code></h5>
+<p>Converts sRGB to Adaptive Oklab.</p>
+<pre><code class="language-javascript">const adapter = new AdaptiveOklab({ surround: &#39;dark&#39; });
+const adapted = adapter.fromSrgb({ r: 0.5, g: 0.5, b: 0.5 });
+</code></pre>
+<h5 id="tosrgboklab-oklabcolor-srgbcolor"><code>toSrgb(oklab: OklabColor): SrgbColor</code></h5>
+<p>Converts Adaptive Oklab back to sRGB.</p>
+<h5 id="fromxyzxyz-xyzcolor-oklabcolor"><code>fromXyz(xyz: XyzColor): OklabColor</code></h5>
+<p>Converts XYZ to Adaptive Oklab.</p>
+<h5 id="toxyzoklab-oklabcolor-xyzcolor"><code>toXyz(oklab: OklabColor): XyzColor</code></h5>
+<p>Converts Adaptive Oklab to XYZ.</p>
+<h4 id="properties">Properties</h4>
+<h5 id="surround"><code>surround</code></h5>
+<p>Returns the current surround setting.</p>
+<h5 id="params"><code>params</code></h5>
+<p>Returns the adaptation parameters.</p>
+<h3 id="ciecam16">CIECAM16</h3>
+<h4 id="srgbtociecam16srgb-srgbcolor-conditions-ciecam16viewingconditions-ciecam16appearance"><code>srgbToCiecam16(srgb: SrgbColor, conditions: Ciecam16ViewingConditions): Ciecam16Appearance</code></h4>
+<p>Calculates CIECAM16 appearance correlates.</p>
+<pre><code class="language-javascript">const appearance = srgbToCiecam16(
+  { r: 0.5, g: 0.5, b: 0.5 },
+  {
+    adaptingLuminance: 100,
+    backgroundLuminanceFactor: 0.2,
+    surroundType: &#39;average&#39;,
+    degreeOfAdaptation: 1
+  }
+);
+// Returns: { J, C, h, M, s, Q }
+</code></pre>
+<p>Viewing conditions:</p>
+<ul>
+<li><code>adaptingLuminance</code>: cd/m² of adapting field</li>
+<li><code>backgroundLuminanceFactor</code>: Relative luminance of background</li>
+<li><code>surroundType</code>: &#39;average&#39; | &#39;dim&#39; | &#39;dark&#39;</li>
+<li><code>degreeOfAdaptation</code>: 0-1 (optional, default: 1)</li>
+</ul>
+<h3 id="cam16-ucs">CAM16-UCS</h3>
+<h4 id="srgbtocam16ucssrgb-srgbcolor-conditions-ciecam16viewingconditions-cam16ucscolor"><code>srgbToCam16Ucs(srgb: SrgbColor, conditions: Ciecam16ViewingConditions): Cam16UcsColor</code></h4>
+<p>Converts sRGB to CAM16-UCS perceptually uniform space.</p>
+<h4 id="cam16ucstosrgbucs-cam16ucscolor-conditions-ciecam16viewingconditions-srgbcolor--null"><code>cam16UcsToSrgb(ucs: Cam16UcsColor, conditions: Ciecam16ViewingConditions): SrgbColor | null</code></h4>
+<p>Converts CAM16-UCS back to sRGB.</p>
+<h4 id="cam16ucscolordifferenceucs1-cam16ucscolor-ucs2-cam16ucscolor-number"><code>cam16UcsColorDifference(ucs1: Cam16UcsColor, ucs2: Cam16UcsColor): number</code></h4>
+<p>Calculates perceptually uniform color difference.</p>
+<h2 id="color-metrics">Color Metrics</h2>
+<h3 id="wcag-contrast">WCAG Contrast</h3>
+<h4 id="calculatewcagcontrastfg-srgbcolor-bg-srgbcolor-number"><code>calculateWcagContrast(fg: SrgbColor, bg: SrgbColor): number</code></h4>
+<p>Calculates WCAG contrast ratio between two colors.</p>
+<pre><code class="language-javascript">const contrast = calculateWcagContrast(
+  { r: 0, g: 0, b: 0 },     // black text
+  { r: 1, g: 1, b: 1 }      // white background
+);
+// Returns: 21 (maximum contrast)
+</code></pre>
+<h4 id="iswcagcontrastsufficientfg-srgbcolor-bg-srgbcolor-level-aa--aaa-size-normal--large-boolean"><code>isWcagContrastSufficient(fg: SrgbColor, bg: SrgbColor, level: &#39;AA&#39; | &#39;AAA&#39;, size?: &#39;normal&#39; | &#39;large&#39;): boolean</code></h4>
+<p>Checks if contrast meets WCAG requirements.</p>
+<pre><code class="language-javascript">const meetsAA = isWcagContrastSufficient(fg, bg, &#39;AA&#39;, &#39;normal&#39;);
+// Returns: true if contrast &gt;= 4.5
+</code></pre>
+<h4 id="getsrgbrelativeluminancesrgb-srgbcolor-number"><code>getSrgbRelativeLuminance(srgb: SrgbColor): number</code></h4>
+<p>Calculates relative luminance for WCAG calculations.</p>
+<h3 id="color-difference">Color Difference</h3>
+<h4 id="calculateciede2000lab1-labcolor-lab2-labcolor-number"><code>calculateCiede2000(lab1: LabColor, lab2: LabColor): number</code></h4>
+<p>Calculates CIEDE2000 perceptual color difference.</p>
+<pre><code class="language-javascript">const deltaE = calculateCiede2000(
+  { L: 50, a: 0, b: 0 },
+  { L: 51, a: 0, b: 0 }
+);
+// Returns: ~0.77 (barely perceptible)
+</code></pre>
+<h4 id="calculateoklchdifferenceoklch1-oklchcolor-oklch2-oklchcolor-number"><code>calculateOklchDifference(oklch1: OklchColor, oklch2: OklchColor): number</code></h4>
+<p>Calculates color difference in OkLCH space.</p>
+<h2 id="gamut-management">Gamut Management</h2>
+<h3 id="validation">Validation</h3>
+<h4 id="issrgbingamutsrgb-srgbcolor-epsilon-number-boolean"><code>isSrgbInGamut(srgb: SrgbColor, epsilon?: number): boolean</code></h4>
+<p>Checks if an sRGB color is within the displayable gamut.</p>
+<pre><code class="language-javascript">const inGamut = isSrgbInGamut({ r: 0.5, g: 0.5, b: 0.5 });
+// Returns: true
+
+const outOfGamut = isSrgbInGamut({ r: 1.5, g: 0.5, b: -0.1 });
+// Returns: false
+</code></pre>
+<h4 id="islabintypicalrangelab-labcolor-boolean"><code>isLabInTypicalRange(lab: LabColor): boolean</code></h4>
+<p>Checks if Lab values are in typical ranges.</p>
+<h4 id="isoklabintypicalrangeoklab-oklabcolor-boolean"><code>isOklabInTypicalRange(oklab: OklabColor): boolean</code></h4>
+<p>Checks if Oklab values are in typical ranges.</p>
+<h4 id="isvalidsrgbobjectobj-any-boolean"><code>isValidSrgbObject(obj: any): boolean</code></h4>
+<p>Type guard for sRGB color objects.</p>
+<h3 id="clamping-and-scaling">Clamping and Scaling</h3>
+<h4 id="clampsrgbsrgb-srgbcolor-srgbcolor"><code>clampSrgb(srgb: SrgbColor): SrgbColor</code></h4>
+<p>Clamps sRGB values to [0,1] range.</p>
+<pre><code class="language-javascript">const clamped = clampSrgb({ r: 1.5, g: -0.1, b: 0.5 });
+// Returns: { r: 1, g: 0, b: 0.5 }
+</code></pre>
+<h4 id="scaletosrgbgamutsrgb-srgbcolor-srgbcolor"><code>scaleToSrgbGamut(srgb: SrgbColor): SrgbColor</code></h4>
+<p>Scales out-of-gamut colors proportionally.</p>
+<h4 id="getsrgbgamutinfosrgb-srgbcolor-gamutinfo"><code>getSrgbGamutInfo(srgb: SrgbColor): GamutInfo</code></h4>
+<p>Returns detailed gamut information.</p>
+<h3 id="gamut-mapping">Gamut Mapping</h3>
+<h4 id="gamutmapoklchoklch-oklchcolor-targetgamut-srgb--display-p3--rec2020-oklchcolor"><code>gamutMapOklch(oklch: OklchColor, targetGamut: &#39;srgb&#39; | &#39;display-p3&#39; | &#39;rec2020&#39;): OklchColor</code></h4>
+<p>Maps colors to target gamut using CSS Color 4 algorithm.</p>
+<pre><code class="language-javascript">const vibrant = { L: 0.7, C: 0.5, h: 30 };  // Out of sRGB
+const mapped = gamutMapOklch(vibrant, &#39;srgb&#39;);
+// Returns: Color with reduced chroma that fits in sRGB
+</code></pre>
+<h4 id="gamutmapsrgbsrgb-srgbcolor-targetgamut-string-srgbcolor"><code>gamutMapSrgb(srgb: SrgbColor, targetGamut: string): SrgbColor</code></h4>
+<p>Maps sRGB colors to target gamut.</p>
+<h4 id="getmaxchromal-number-h-number-space-lch--oklch-precision-number-number"><code>getMaxChroma(L: number, h: number, space?: &#39;lch&#39; | &#39;oklch&#39;, precision?: number): number</code></h4>
+<p>Finds maximum chroma for given lightness and hue.</p>
+<h2 id="css-parsing">CSS Parsing</h2>
+<h4 id="parsecsscss-string-srgbcolor--null"><code>parseCSS(css: string): SrgbColor | null</code></h4>
+<p>Parses CSS color strings to sRGB.</p>
+<p>Supported formats:</p>
+<ul>
+<li>Hex: <code>#RGB</code>, <code>#RRGGBB</code>, <code>#RRGGBBAA</code></li>
+<li>RGB: <code>rgb(255, 0, 0)</code>, <code>rgb(100% 0% 0%)</code></li>
+<li>Modern: <code>rgb(255 0 0)</code>, <code>rgb(255 0 0 / 0.5)</code></li>
+<li>Lab: <code>lab(50% 40 30)</code></li>
+<li>LCH: <code>lch(50% 40 30deg)</code></li>
+<li>Oklab: <code>oklab(0.7 0.1 0.1)</code></li>
+<li>OkLCH: <code>oklch(0.7 0.2 150deg)</code></li>
+<li>Display P3: <code>color(display-p3 1 0 0.5)</code></li>
+<li>Rec2020: <code>color(rec2020 1 0 0.5)</code></li>
+<li>Named colors: <code>red</code>, <code>blue</code>, etc.</li>
+</ul>
+<pre><code class="language-javascript">const color1 = parseCSS(&#39;#FF5733&#39;);
+const color2 = parseCSS(&#39;rgb(255, 87, 51)&#39;);
+const color3 = parseCSS(&#39;oklch(70% 0.2 150deg)&#39;);
+const color4 = parseCSS(&#39;color(display-p3 1 0 0.5)&#39;);
+</code></pre>
+<h3 id="css-formatting">CSS Formatting</h3>
+<h4 id="formatcssrgbsrgb-srgbcolor-string"><code>formatCssRgb(srgb: SrgbColor): string</code></h4>
+<p>Formats as CSS rgb() function.</p>
+<h4 id="formatcsslablab-labcolor-string"><code>formatCssLab(lab: LabColor): string</code></h4>
+<p>Formats as CSS lab() function.</p>
+<h4 id="formatcsslchlch-lchcolor-string"><code>formatCssLch(lch: LchColor): string</code></h4>
+<p>Formats as CSS lch() function.</p>
+<h4 id="formatcssoklaboklab-oklabcolor-string"><code>formatCssOklab(oklab: OklabColor): string</code></h4>
+<p>Formats as CSS oklab() function.</p>
+<h4 id="formatcssoklchoklch-oklchcolor-string"><code>formatCssOklch(oklch: OklchColor): string</code></h4>
+<p>Formats as CSS oklch() function.</p>
+<h4 id="formatcsscolorcolor-displayp3color--rec2020color-space-string-string"><code>formatCssColor(color: DisplayP3Color | Rec2020Color, space: string): string</code></h4>
+<p>Formats as CSS color() function.</p>
+<h2 id="utility-functions">Utility Functions</h2>
+<h4 id="clampvalue-number-min-number-max-number-number"><code>clamp(value: number, min: number, max: number): number</code></h4>
+<p>Clamps a value to a range.</p>
+<h4 id="degreestoradiansdegrees-number-number"><code>degreesToRadians(degrees: number): number</code></h4>
+<p>Converts degrees to radians.</p>
+<h4 id="radianstodegreesradians-number-number"><code>radiansToDegrees(radians: number): number</code></h4>
+<p>Converts radians to degrees.</p>
+<h4 id="normalizehuehue-number-number"><code>normalizeHue(hue: number): number</code></h4>
+<p>Normalizes hue to [0, 360) range.</p>
+<h4 id="signpreservingpowbase-number-exponent-number-number"><code>signPreservingPow(base: number, exponent: number): number</code></h4>
+<p>Power function that preserves sign.</p>
+<h4 id="multiplymatrixvectormatrix-number-vector-number-number"><code>multiplyMatrixVector(matrix: number[][], vector: number[]): number[]</code></h4>
+<p>Matrix-vector multiplication for color transforms.</p>
+<h2 id="type-definitions">Type Definitions</h2>
+<h3 id="color-types">Color Types</h3>
+<pre><code class="language-typescript">interface SrgbColor {
+  r: number;  // [0, 1]
+  g: number;  // [0, 1]
+  b: number;  // [0, 1]
+}
+
+interface LabColor {
+  L: number;  // [0, 100]
+  a: number;  // typically [-128, 127]
+  b: number;  // typically [-128, 127]
+}
+
+interface LchColor {
+  L: number;  // [0, 100]
+  C: number;  // [0, ∞)
+  h: number;  // [0, 360)
+}
+
+interface OklabColor {
+  L: number;  // [0, 1]
+  a: number;  // typically [-0.4, 0.4]
+  b: number;  // typically [-0.4, 0.4]
+}
+
+interface OklchColor {
+  L: number;  // [0, 1]
+  C: number;  // [0, ∞)
+  h: number;  // [0, 360)
+}
+
+interface XyzColor {
+  X: number;  // [0, 1] (Y-normalized)
+  Y: number;  // [0, 1]
+  Z: number;  // [0, 1]
+}
+</code></pre>
+<p>For complete type definitions, see <a href="../index.d.ts">index.d.ts</a>.</p>
+</body>
+</html>
