@@ -165,6 +165,13 @@ export class AdaptiveOklab {
    * @readonly
    */
   _correctionFactor;
+  
+  /**
+   * Optional tone mapping configuration for advanced surround adaptation
+   * @type {Object}
+   * @private
+   */
+  _toneMapping;
 
   /**
    * Creates an instance of the AdaptiveOklab converter.
@@ -173,6 +180,13 @@ export class AdaptiveOklab {
    * const aokWhite = new AdaptiveOklab({ surround: 'white' });
    * const aokGray = new AdaptiveOklab(); // Defaults to 'gray' surround
    * const aokDarkHighX0 = new AdaptiveOklab({ surround: 'dark', x0: 0.6 });
+   * const aokAdvanced = new AdaptiveOklab({ 
+   *   surround: 'gray',
+   *   toneMapping: { 
+   *     gammaAdjustment: 0.5,  // Additional gamma on top of base
+   *     sigmoidStrength: 0.3    // Shadow lifting strength
+   *   }
+   * });
    */
   constructor(options = {}) {
     this.surround = options.surround || 'gray';
@@ -190,6 +204,9 @@ export class AdaptiveOklab {
     } else {
       this._correctionFactor = Math.pow(this._x0, STANDARD_OKLAB_EXPONENT - this._exponent);
     }
+    
+    // Store tone mapping configuration if provided
+    this._toneMapping = options.toneMapping || null;
   }
   
   /**
@@ -203,6 +220,77 @@ export class AdaptiveOklab {
       correctionFactor: this._correctionFactor,
       surround: this.surround
     };
+  }
+
+  /**
+   * Apply tone mapping to lightness value if configured
+   * @private
+   * @param {number} L - Lightness value (0-1 range)
+   * @returns {number} Tone-mapped lightness value
+   */
+  _applyToneMapping(L) {
+    if (!this._toneMapping) return L;
+    
+    let result = L;
+    
+    // Apply gamma adjustment if specified
+    if (this._toneMapping.gammaAdjustment && Math.abs(this._toneMapping.gammaAdjustment) > 0.01) {
+      const gamma = 1.0 + this._toneMapping.gammaAdjustment;
+      result = Math.pow(result, gamma);
+    }
+    
+    // Apply sigmoid shadow/highlight control if specified
+    if (this._toneMapping.sigmoidStrength && Math.abs(this._toneMapping.sigmoidStrength) > 0.001) {
+      result = this._applySigmoid(result, this._toneMapping.sigmoidStrength);
+    }
+    
+    return Math.max(0, Math.min(1, result));
+  }
+  
+  /**
+   * Apply sigmoid tone curve for shadow/highlight control
+   * @private
+   * @param {number} L - Input lightness (0-1)
+   * @param {number} strength - Sigmoid strength (-1 to 1)
+   *                             Positive: Lifts shadows (0-50% range)
+   *                             Negative: Increases contrast (S-curve)
+   * @returns {number} Modified lightness
+   */
+  _applySigmoid(L, strength) {
+    if (L <= 0) return 0;
+    if (L >= 1) return 1;
+    if (Math.abs(strength) < 0.001) return L;
+    
+    if (strength > 0) {
+      // Positive: Smooth shadow lift focusing on 0-50% range
+      // Increased multiplier for stronger shadow lifting
+      // Allows strength values up to 2.0 for more headroom
+      const amount = strength * 0.3;
+      
+      // Smooth weight function using cosine
+      // Maximum at L=0, smoothly decreases to near-zero at L=1
+      const shadowWeight = (1 + Math.cos(Math.PI * Math.min(L * 2, 1))) / 2;
+      
+      // Apply lift using a formula that can't clip at zero
+      const lifted = L + amount * shadowWeight * (1 - L) * Math.sqrt(L + 0.01);
+      return Math.max(0, Math.min(1, lifted));
+    } else {
+      // Negative: Increase contrast (S-curve)
+      // Standard sigmoid centered at 0.5
+      // Increased multiplier for stronger contrast effect
+      const k = -strength * 8; // Increased from 5 to 8 for stronger effect
+      const sigmoid = 1 / (1 + Math.exp(-k * (L - 0.5)));
+      
+      // Normalize to maintain 0 and 1 endpoints
+      const sigmoidMin = 1 / (1 + Math.exp(-k * (0 - 0.5)));
+      const sigmoidMax = 1 / (1 + Math.exp(-k * (1 - 0.5)));
+      
+      if (Math.abs(sigmoidMax - sigmoidMin) > 0.001) {
+        return (sigmoid - sigmoidMin) / (sigmoidMax - sigmoidMin);
+      } else {
+        return L;
+      }
+    }
   }
 
   /**
@@ -231,9 +319,15 @@ export class AdaptiveOklab {
     // Step 3: Convert adaptively non-linear LMS' to preliminary Oklab-like (L', a', b') (using Oklab M2)
     const labArrayPrime = multiplyMatrixVector(MATRIX_LMS_PRIME_TO_OKLAB, lmsPrimeAdaptive);
 
-    // Step 4: Apply hue correction factor to a' and b'
+    // Step 4: Apply tone mapping to L if configured
+    let L = labArrayPrime[0];
+    if (this._toneMapping) {
+      L = this._applyToneMapping(L);
+    }
+
+    // Step 5: Apply hue correction factor to a' and b'
     return {
-      L: labArrayPrime[0], // L component from M2
+      L: L, // Tone-mapped L component
       a: labArrayPrime[1] * this._correctionFactor, // Corrected a component
       b: labArrayPrime[2] * this._correctionFactor, // Corrected b component
     };
@@ -300,6 +394,33 @@ export class AdaptiveOklab {
   }
 
   /**
+   * Reverse tone mapping to get original lightness value
+   * @private
+   * @param {number} L - Tone-mapped lightness value (0-1 range)
+   * @returns {number} Original lightness value
+   */
+  _reverseToneMapping(L) {
+    if (!this._toneMapping) return L;
+    
+    let result = L;
+    
+    // Reverse sigmoid if it was applied
+    if (this._toneMapping.sigmoidStrength && Math.abs(this._toneMapping.sigmoidStrength) > 0.001) {
+      // This is an approximation - exact inverse would require solving a nonlinear equation
+      // For now, apply inverse sigmoid approximation
+      result = this._applySigmoid(result, -this._toneMapping.sigmoidStrength * 0.8);
+    }
+    
+    // Reverse gamma adjustment if it was applied
+    if (this._toneMapping.gammaAdjustment && Math.abs(this._toneMapping.gammaAdjustment) > 0.01) {
+      const gamma = 1.0 + this._toneMapping.gammaAdjustment;
+      result = Math.pow(result, 1.0 / gamma);
+    }
+    
+    return Math.max(0, Math.min(1, result));
+  }
+
+  /**
    * Converts an Adaptive Oklab color object back to a Linear sRGB color object.
    * This method reverses the adaptive transformation applied by this instance.
    * @param {OklabColor} adaptiveOklabColor - The Adaptive Oklab color {L, a, b} to convert.
@@ -317,7 +438,13 @@ export class AdaptiveOklab {
       throw new TypeError('Input adaptiveOklabColor must be an object with L, a, b valid number properties.');
     }
 
-    const { L } = adaptiveOklabColor;
+    let { L } = adaptiveOklabColor;
+    
+    // Step 0: Reverse tone mapping if it was applied
+    if (this._toneMapping) {
+      L = this._reverseToneMapping(L);
+    }
+    
     // Step 1: Undo the hue correction factor
     // Handle potential division by zero if _correctionFactor is somehow zero
     let aUncorrected, bUncorrected;

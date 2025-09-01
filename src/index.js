@@ -80,6 +80,16 @@ export {
   AdaptiveOklab 
 } from './aoklab.js';
 
+// --- Adaptive Oklab Presets and Utilities ---
+export {
+  AOKLAB_PRESETS,
+  AOKLAB_SIMPLE_PRESETS,
+  createAoklabForSurround,
+  getRecommendedSurround,
+  exportConfig,
+  createFromConfig
+} from './aoklab-defaults.js';
+
 // --- CIECAM16 Color Appearance Model ---
 export { 
   srgbToCiecam16 
