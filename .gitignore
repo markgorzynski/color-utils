@@ -8,7 +8,7 @@ lerna-debug.log*
 *.tgz
 
 # Dependencies
-package-lock.json
+# package-lock.json is needed for CI
 yarn.lock
 
 # Testing
